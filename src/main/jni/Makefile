@@ -1,8 +1,12 @@
 
 #Include openssl crypto
-include ../crypto-c/Crypto/Makefile
+include ../../../crypto-c/Crypto/Makefile
+HM_OPENSSL_C  := $(shell cd ../../../crypto-c/Crypto/; pwd)
+dir += $(HM_OPENSSL_C)
 #Include HM bt core
-include ../high-mobility-bt-core/Makefile
+include ../../../high-mobility-bt-core/Makefile
+HM_BT_CORE  := $(shell cd ../../../high-mobility-bt-core/; pwd)
+dir += $(HM_BT_CORE)
 
 JAVA_HOME:=`/usr/libexec/java_home`
 CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin
