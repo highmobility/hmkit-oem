@@ -6,6 +6,8 @@ import com.highmobility.btcore.HMDevice;
 public class CoreCallback implements HMBTCoreInterface {
 
     public int HMBTHalInit(){
+
+        System.out.println("CALLBACK OK");
         return 0;
     }
 
