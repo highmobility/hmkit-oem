@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/oem-cloud-sdk.iml" filepath="$PROJECT_DIR$/oem-cloud-sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CloudSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/CloudSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CloudSDK_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CloudSDK_main.iml" group="CloudSDK" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CloudSDK_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CloudSDK_test.iml" group="CloudSDK" />
     </modules>
   </component>
 </project>
