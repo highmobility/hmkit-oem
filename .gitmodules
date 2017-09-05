@@ -4,6 +4,3 @@
 [submodule "crypto-c"]
 	path = crypto-c
 	url = https://bitbucket.org/highmobility/crypto-c.git
-[submodule "high-mobility-persistence-sqlite"]
-	path = high-mobility-persistence-sqlite
-	url = https://bitbucket.org/highmobility/high-mobility-persistence-sqlite
