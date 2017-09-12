@@ -1,12 +1,21 @@
 package com.highmobility.btcore;
 
+import com.highmobility.NativeUtils;
+
+import java.io.IOException;
+import java.lang.annotation.Native;
+
 /**
  * Created by ttiganik on 13/04/16.
  */
 public class HMBTCore {
 
     static {
-        System.loadLibrary("hmbtcore");
+        try {
+            NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //Init core

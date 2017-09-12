@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CloudSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/CloudSDK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CloudSDK_main.iml" filepath="$PROJECT_DIR$/.idea/modules/CloudSDK_main.iml" group="CloudSDK" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CloudSDK_test.iml" filepath="$PROJECT_DIR$/.idea/modules/CloudSDK_test.iml" group="CloudSDK" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TestApp.iml" filepath="$PROJECT_DIR$/.idea/modules/TestApp.iml" group="TestApp" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TestApp/TestApp_main.iml" filepath="$PROJECT_DIR$/.idea/modules/TestApp/TestApp_main.iml" group="TestApp" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TestApp/TestApp_test.iml" filepath="$PROJECT_DIR$/.idea/modules/TestApp/TestApp_test.iml" group="TestApp" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloudSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/cloudSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloudSDK_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cloudSDK_main.iml" group="cloudSDK" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloudSDK_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cloudSDK_test.iml" group="cloudSDK" />
     </modules>
   </component>
 </project>
