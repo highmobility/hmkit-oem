@@ -52,7 +52,7 @@ public class HMBTCore {
     public native void HMBTCoreSendReadDeviceCertificate(HMBTCoreInterface coreInterface, byte[] mac, byte[] nonce, byte[] caSignature);
     public native void HMBTCoreSendRegisterAccessCertificate(HMBTCoreInterface coreInterface, byte[] certificate);
 
-    //Crypto
+    //crypto
     public native void HMBTCoreCryptoCreateKeys(byte[] privateKey, byte[] publicKey);
 
     public native void HMBTCoreCryptoAddSignature(byte[] data, int size, byte[] privateKey, byte[] signature);

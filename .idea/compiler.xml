@@ -4,6 +4,8 @@
     <bytecodeTargetLevel target="1.8">
       <module name="CloudSDK_main" target="1.8" />
       <module name="CloudSDK_test" target="1.8" />
+      <module name="TestApp_main" target="1.8" />
+      <module name="TestApp_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

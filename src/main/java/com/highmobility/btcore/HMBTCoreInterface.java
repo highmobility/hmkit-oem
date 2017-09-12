@@ -98,6 +98,6 @@ public interface HMBTCoreInterface {
 
     void HMApiCallbackTelematicsCommandIncoming(HMDevice device, int id, int length, byte[] data);
 
-    //Crypto
+    //crypto
     void HMCryptoHalGenerateNonce(byte[] nonce);
 }

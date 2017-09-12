@@ -156,7 +156,7 @@ public class CoreCallback implements HMBTCoreInterface {
 
     }
 
-    //Crypto
+    //crypto
     public void HMCryptoHalGenerateNonce(byte[] nonce){
 
     }
