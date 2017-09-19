@@ -143,17 +143,4 @@ public class DeviceCertificate extends Certificate {
 
         this.bytes = bytes;
     }
-
-
-    /*
-        /// Initialise the LocalDevice with essential values before using any other functionality.
-    ///
-    /// - parameter deviceCertificate: The device's certificate in base64
-    /// - parameter devicePrivateKey:  The device's private key in base64, 32 bytes, using elliptic curve p256
-    /// - parameter issuerPublicKey:   The issuer's public key in base64 , 64 bytes
-    ///
-    /// - throws: *LinkError.internalError* when the device cert couldn't be created from the input, or the keys are not the correct length
-    public func initialise(deviceCertificate: Base64, devicePrivateKey: Base64, issuerPublicKey: Base64) throws {
-     */
-
 }

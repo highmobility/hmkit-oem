@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.highmobility;
+package com.highmobility.btcore;
 
 import java.io.*;
 import java.nio.file.FileSystemNotFoundException;
@@ -37,7 +37,7 @@ import java.nio.file.ProviderNotFoundException;
  * @see https://github.com/adamheinrich/native-utils
  *
  */
-public class NativeUtils {
+class NativeUtils {
  
     /**
      * Private constructor - this class will never be instanced
@@ -56,7 +56,7 @@ public class NativeUtils {
      * @throws IllegalArgumentException If source file (param path) does not exist
      * @throws IllegalArgumentException If the path is not absolute or if the filename is shorter than three characters (restriction of {@see File#createTempFile(java.lang.String, java.lang.String)}).
      */
-    public static void loadLibraryFromJar(String path) throws IOException {
+    static void loadLibraryFromJar(String path) throws IOException {
  
         if (!path.startsWith("/")) {
             throw new IllegalArgumentException("The path has to be absolute (start with '/').");

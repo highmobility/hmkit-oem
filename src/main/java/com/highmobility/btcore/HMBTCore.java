@@ -1,9 +1,6 @@
 package com.highmobility.btcore;
 
-import com.highmobility.NativeUtils;
-
 import java.io.IOException;
-import java.lang.annotation.Native;
 
 /**
  * Created by ttiganik on 13/04/16.
@@ -11,10 +8,16 @@ import java.lang.annotation.Native;
 public class HMBTCore {
 
     static {
-        try {
-            NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
-        } catch (IOException e) {
-            e.printStackTrace();
+        boolean jar = HMBTCore.class.getResource("HMBTCore.class").toString().startsWith("jar");
+        if (jar) {
+            try {
+                NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.loadLibrary("hmbtcore");
         }
     }
 

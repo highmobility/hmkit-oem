@@ -45,10 +45,10 @@ public interface HMBTCoreInterface {
     //Get current device serial number
     //TT
     int HMPersistenceHalgetSerial(byte[] serial);
-    //Get current device publick key
+    //Get current device public key
     //TT
     int HMPersistenceHalgetLocalPublicKey(byte[] publicKey);
-    //Get current device publick key
+    //Get current device public key
     //TT
     int HMPersistenceHalgetLocalPrivateKey(byte[] privateKey);
     //TT
@@ -58,17 +58,17 @@ public interface HMBTCoreInterface {
 
     int HMPersistenceHalgetOEMCaPublicKey(byte[] cert);
 
-    //Add remote device publick key to storagr
+    //Add remote device public key to storage
     //TT
     int HMPersistenceHaladdPublicKey(byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int commandSize, byte[] command);
-    //Get remote device publick key from storage
+    //Get remote device public key from storage
     //TT
     int HMPersistenceHalgetPublicKey(byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int[] commandSize, byte[] command);
     //TT
     int HMPersistenceHalgetPublicKeyByIndex(int index, byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int[] commandSize, byte[] command);
     //TT
     int HMPersistenceHalgetPublicKeyCount(int[] count);
-    //Remove remote device publick key from storage
+    //Remove remote device public key from storage
     //TT
     int HMPersistenceHalremovePublicKey(byte[] serial);
 
@@ -93,8 +93,8 @@ public interface HMBTCoreInterface {
     //TT
     void HMApiCallbackCustomCommandIncoming(HMDevice device, byte[] data, int length); // received custom command
     void HMApiCallbackCustomCommandResponse(HMDevice device, byte[] data, int length);
-    int HMApiCallbackGetDeviceCertificateFailed(HMDevice device, byte[] nonce); //ret false on, et ei jätka
-    int HMApiCallbackPairingRequested(HMDevice device); //ret false on, et ei jätka
+    int HMApiCallbackGetDeviceCertificateFailed(HMDevice device, byte[] nonce); // ret false means don't continue
+    int HMApiCallbackPairingRequested(HMDevice device); //ret false means don't continue
 
     void HMApiCallbackTelematicsCommandIncoming(HMDevice device, int id, int length, byte[] data);
 
