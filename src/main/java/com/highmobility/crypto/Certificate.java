@@ -1,4 +1,4 @@
-package com.highmobility.hmkit.Crypto;
+package com.highmobility.crypto;
 
 import java.util.Calendar;
 import java.util.Date;

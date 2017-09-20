@@ -134,7 +134,7 @@ public class AccessCertificate extends Certificate {
      * @return A boolean value indicating if the certificate has expired.
      */
     public boolean isExpired() {
-        return getEndDate().after(new Date());
+        return getEndDate().before(new Date());
     }
 
     @Override

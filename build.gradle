@@ -18,6 +18,7 @@ dependencies {
     compile name: 'hm-byteutils-1.0'
 }
 
+// copy the c lib to jar
 jar {
     from "lib/libhmbtcore.jnilib"
 }
