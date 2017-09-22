@@ -1,7 +1,7 @@
 package com.highmobility.crypto;
 
 
-import com.highmobility.byteutils.Bytes;
+import com.highmobility.utils.Bytes;
 
 /**
  * Created by ttiganik on 13/04/16.

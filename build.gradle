@@ -3,7 +3,7 @@ version '1.0'
 apply plugin: 'java'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 
 repositories {
     mavenCentral()
@@ -15,10 +15,10 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile name: 'hm-byteutils-1.0'
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-// copy the c lib to jar
+// exclude c files from jar
 jar {
-    from "lib/libhmbtcore.jnilib"
+    exclude('com/highmobility/btcore/**')
 }

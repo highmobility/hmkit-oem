@@ -1,8 +1,7 @@
 package com.highmobility.crypto;
 
-import com.highmobility.byteutils.Bytes;
-
-import java.util.Base64;
+import com.highmobility.utils.Bytes;
+import com.highmobility.utils.Base64;
 import java.util.Date;
 
 /**
@@ -210,7 +209,7 @@ public class AccessCertificate extends Certificate {
      */
     public AccessCertificate(String base64Bytes) throws IllegalAccessException {
         super();
-        this.bytes = Base64.getDecoder().decode(base64Bytes);
+        this.bytes = Base64.decode(base64Bytes);
         validateBytes();
     }
 

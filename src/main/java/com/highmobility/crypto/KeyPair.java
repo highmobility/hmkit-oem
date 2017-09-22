@@ -1,5 +1,7 @@
 package com.highmobility.crypto;
-import java.util.Base64;
+
+
+import com.highmobility.utils.Base64;
 
 /**
  * Created by ttiganik on 26/05/16.
@@ -18,7 +20,7 @@ public class KeyPair {
     }
 
     public String getPublicKeyBase64() {
-        return Base64.getEncoder().encodeToString(publicKey);
+        return Base64.encode(publicKey);
     }
 
     public byte[] getPrivateKey() {
@@ -26,6 +28,6 @@ public class KeyPair {
     }
 
     public String getPrivateKeyBase64() {
-        return Base64.getEncoder().encodeToString(privateKey);
+        return Base64.encode(privateKey);
     }
 }
