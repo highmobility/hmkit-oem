@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TestApp/TestApp.iml" filepath="$PROJECT_DIR$/.idea/modules/TestApp/TestApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cloudSDK.iml" filepath="$PROJECT_DIR$/.idea/modules/cloudSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hmkit.iml" filepath="$PROJECT_DIR$/.idea/modules/hmkit.iml" />
     </modules>
   </component>
 </project>

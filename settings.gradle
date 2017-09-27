@@ -1,2 +1,4 @@
-rootProject.name = 'cloudSDK'
+rootProject.name = 'hmkit'
 include 'TestApp'
+include 'TestApp'
+

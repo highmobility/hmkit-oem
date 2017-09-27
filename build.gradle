@@ -3,19 +3,15 @@ version '1.0'
 apply plugin: 'java'
 apply plugin: 'idea'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.7
 
 repositories {
     mavenCentral()
-
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar') // TODO: auto api does not need to be here probably
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile name: 'hm-byteutils-1.0'
 }
 
 // copy the c lib to jar
