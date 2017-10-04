@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 rootProject.name = 'hmkit'
 include 'TestApp'
 include 'TestApp'
 
+=======
+rootProject.name = 'hmkit-crypto'
+>>>>>>> 200719a10871889b7f568f166ea9055e08b93dd3

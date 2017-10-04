@@ -1,24 +1,12 @@
 package com.highmobility.btcore;
 
-import java.io.IOException;
-
 /**
  * Created by ttiganik on 13/04/16.
  */
 public class HMBTCore {
 
     static {
-        boolean jar = HMBTCore.class.getResource("HMBTCore.class").toString().startsWith("jar");
-        if (jar) {
-            try {
-                NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            System.loadLibrary("hmbtcore");
-        }
+        System.loadLibrary("hmbtcore");
     }
 
     //Init core
