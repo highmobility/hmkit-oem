@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TestApp/TestApp.iml" filepath="$PROJECT_DIR$/.idea/modules/TestApp/TestApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/hmkit.iml" filepath="$PROJECT_DIR$/.idea/modules/hmkit.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/hmkit-crypto.iml" filepath="$PROJECT_DIR$/.idea/modules/hmkit-crypto.iml" />
->>>>>>> 200719a10871889b7f568f166ea9055e08b93dd3
     </modules>
   </component>
 </project>
