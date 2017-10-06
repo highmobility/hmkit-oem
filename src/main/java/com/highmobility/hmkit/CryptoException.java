@@ -1,4 +1,4 @@
-package com.highmobility.core;
+package com.highmobility.hmkit;
 
 public class CryptoException extends Exception {
     enum Type {

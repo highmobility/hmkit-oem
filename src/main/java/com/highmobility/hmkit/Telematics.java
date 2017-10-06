@@ -1,11 +1,11 @@
-package com.highmobility.core;
+package com.highmobility.hmkit;
 
 import com.highmobility.btcore.HMBTCore;
 import com.highmobility.btcore.HMBTCoreInterface;
 import com.highmobility.btcore.HMDevice;
 import com.highmobility.crypto.AccessCertificate;
 
-public class Core implements HMBTCoreInterface {
+public class Telematics implements HMBTCoreInterface {
     static String invalidArgumentExceptionMessage = "Invalid argument";
 
     HMBTCore core = new HMBTCore();
@@ -14,7 +14,7 @@ public class Core implements HMBTCoreInterface {
     AccessCertificate certificate;
     byte[] response;
 
-    public Core() {
+    public Telematics() {
         core.HMBTCoreInit(this);
     }
 
