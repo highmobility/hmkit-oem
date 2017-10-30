@@ -1,16 +1,60 @@
 version '1.0'
+group = 'com.highmobility'
 
 apply plugin: 'java'
+apply plugin: 'maven'
 apply plugin: 'idea'
+apply plugin: "com.jfrog.artifactory"
 
 sourceCompatibility = 1.7
 
-repositories {
-    mavenCentral()
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4+"
+    }
 }
 
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    //The base Artifactory URL if not overridden by the publisher/resolver
+    publish {
+        repository {
+            repoKey = 'gradle-dev-local'
+            username = "${artifactory_publisheruser}"
+            password = "${artifactory_publisherpassword}"
+            maven = true
+        }
+        defaults {
+            // Reference to Gradle configurations defined in the build script.
+            // This is how we tell the Artifactory Plugin which artifacts should be
+            // published to Artifactory.
+            publishConfigs('archives', 'published')
+            publishPom = true
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'gradle-dev'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+
 dependencies {
+    compile('com.highmobility:hmkit-crypto:1.1')
     compile fileTree(dir: 'libs', include: '*.jar')
+
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
