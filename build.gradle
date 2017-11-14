@@ -50,15 +50,13 @@ repositories {
     jcenter()
 }
 
-
 dependencies {
     compile('com.highmobility:hmkit-crypto:1.1')
     compile fileTree(dir: 'libs', include: '*.jar')
-
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-// exclude c files from jar
-jar {
-    exclude('com/highmobility/btcore/**')
+task jarWithBtCore(type: Jar) {
+    from 'lib/libhmbtcore.jnilib'
+    with jar
 }
