@@ -5,6 +5,7 @@ apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'idea'
 apply plugin: "com.jfrog.artifactory"
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.7
 
@@ -59,4 +60,23 @@ dependencies {
 task jarWithBtCore(type: Jar) {
     from 'lib/libhmbtcore.jnilib'
     with jar
+}
+
+publishing {
+    publications {
+        withBtCore(MavenPublication) {
+            groupId 'com.highmobility'
+            artifact jarWithBtCore
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username "${artifactory_user}"
+                password "${artifactory_password}"
+            }
+
+            url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
+        }
+    }
 }
