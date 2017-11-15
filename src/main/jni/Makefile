@@ -41,7 +41,7 @@ CFLAGS += -I$(APP_SOURCES)\
 LFLAGS +=
 
 CC = gcc
-TARGET = libhmbtcore.so
+TARGET = libhmbtcore.jnilib
 
 all: $(TARGET)
 
@@ -51,7 +51,7 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o $(TARGET) -shared $^ -L/usr/local/opt/openssl/lib -L/usr/lib -lssl -lcrypto
+	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^ -L/usr/local/opt/openssl/lib -L/usr/lib -lssl -lcrypto
 
 clean:
 	rm -f $(TARGET) *.o *~
