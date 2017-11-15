@@ -29,6 +29,7 @@ CFLAGS += -I$(APP_SOURCES)\
 	-I$(HM_BT_CORE)\
 	-I$(HM_OPENSSL_C)\
 	-I/usr/local/opt/openssl/include
+	-I/usr/include/openssl
 
 LFLAGS +=
 
@@ -43,7 +44,7 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o $(TARGET) -shared $^ -L/usr/local/opt/openssl/lib -lssl -lcrypto
+	$(CC) $(CFLAGS) -o $(TARGET) -shared $^ -L/usr/local/opt/openssl/lib -L/usr/lib/x86_64-linux-gnu -lssl -lcrypto
 
 clean:
 	rm -f $(TARGET) *.o *~
