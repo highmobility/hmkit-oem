@@ -57,26 +57,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-task jarWithBtCore(type: Jar) {
+jar {
     from 'lib/libhmbtcore.jnilib'
-    with jar
-}
-
-publishing {
-    publications {
-        withBtCore(MavenPublication) {
-            groupId 'com.highmobility'
-            artifact jarWithBtCore
-        }
-    }
-    repositories {
-        maven {
-            credentials {
-                username "${artifactory_user}"
-                password "${artifactory_password}"
-            }
-
-            url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
-        }
-    }
 }
