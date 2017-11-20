@@ -1,12 +1,14 @@
 
 #Include openssl crypto
-HM_OPENSSL_C  := $(shell cd ../../../crypto-c/Crypto/; pwd)
+include ../../../../crypto-c/Crypto/Makefile
+HM_OPENSSL_C  := $(shell cd ../../../../crypto-c/Crypto/; pwd)
 dir += $(HM_OPENSSL_C)
 #Include HM bt core
-HM_BT_CORE  := $(shell cd ../../../high-mobility-bt-core/; pwd)
+include ../../../../high-mobility-bt-core/Makefile
+HM_BT_CORE  := $(shell cd ../../../../high-mobility-bt-core/; pwd)
 dir += $(HM_BT_CORE)
 
-JAVA_HOME:=`/usr/libexec/java_home`
+JAVA_HOME:=/usr/lib/jvm/default-java
 CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin
 
 #add source paths to vpath
@@ -21,22 +23,23 @@ SRC += hm_bt_debug_hal.c
 SRC += hm_connectivity_hal.c
 SRC += hm_bt_persistence_hal.c
 
-LOCAL_SRC_FILES += ../../../crypto-c/Crypto/Crypto.c
+LOCAL_SRC_FILES += ../../../../crypto-c/Crypto/Crypto.c
 
-LOCAL_SRC_FILES += ../../../high-mobility-bt-core/hm_bt_core.c
-LOCAL_SRC_FILES += ../../../high-mobility-bt-core/hm_bt_log.c
-LOCAL_SRC_FILES += ../../../high-mobility-bt-core/hm_cert.c
-LOCAL_SRC_FILES += ../../../high-mobility-bt-core/hm_conf_access.c
-LOCAL_SRC_FILES += ../../../high-mobility-bt-core/hm_api.c
+LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_bt_core.c
+LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_bt_log.c
+LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_cert.c
+LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_conf_access.c
+LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_api.c
 
 CFLAGS += -Wall -std=c99 -fPIC
 
 CFLAGS += -I$(APP_SOURCES)\
 	-I$(HM_BT_CORE)\
 	-I$(HM_OPENSSL_C)\
-	-I/usr/local/opt/openssl/include\
-	-I/usr/include/openssl\
-	-I/usr/lib/jvm/default-java/include
+	-I/home/n/Downloads/openssl-1.0.2m/include\
+	-I/usr/lib/jvm/default-java/include\
+	-I/usr/lib/jvm/default-java/include/linux
+#	-I/usr/include/openssl
 
 LFLAGS +=
 
@@ -51,7 +54,7 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^ -L/usr/local/opt/openssl/lib -L/usr/lib -lssl -lcrypto
+	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^ -L/home/n/Downloads/openssl-1.0.2m -L/usr/local/opt/openssl/lib -L/usr/lib -lssl -lcrypto
 
 clean:
 	rm -f $(TARGET) *.o *~
