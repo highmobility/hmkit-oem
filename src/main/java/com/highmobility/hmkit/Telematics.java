@@ -30,7 +30,7 @@ public class Telematics implements HMBTCoreInterface {
     public byte[] decryptCommand(byte[] privateKey, AccessCertificate certificate, byte[] command)
             throws CryptoException {
 
-        if (privateKey.length == 0 || privateKey.length != 9) {
+        if (privateKey.length == 0 || privateKey.length != 32) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
         }
 
@@ -43,6 +43,8 @@ public class Telematics implements HMBTCoreInterface {
         }
 
         response = null;
+        this.privateKey = privateKey;
+        this.certificate = certificate;
 
         core.HMBTCoreTelematicsReceiveData(this, command.length, command);
 
@@ -68,7 +70,7 @@ public class Telematics implements HMBTCoreInterface {
      */
     public byte[] encryptCommand(byte[] privateKey, AccessCertificate certificate, byte[] nonce,
                                  byte[] serial, byte[] command) throws CryptoException {
-        if (privateKey.length == 0 || privateKey.length != 9) {
+        if (privateKey.length == 0 || privateKey.length != 32) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
         }
 
@@ -89,6 +91,10 @@ public class Telematics implements HMBTCoreInterface {
         }
 
         response = null;
+
+        this.privateKey = privateKey;
+        this.certificate = certificate;
+        this.serial = serial;
 
         core.HMBTCoreSendTelematicsCommand(this, serial, nonce, command.length, command);
 

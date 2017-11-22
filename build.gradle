@@ -3,12 +3,9 @@ group = 'com.highmobility'
 
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'idea'
 apply plugin: "com.jfrog.artifactory"
-apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.7
-
 
 buildscript {
     repositories {
