@@ -27,10 +27,10 @@ public class Telematics {
         }
 
         HMBTCoreInterface container = new HMBTCoreInterfaceImpl(privateKey, certificate);
-        HMBTCore jniToCore = new HMBTCore(container);
+        HMBTCore coreJni = initCore(container);
 
 
-        jniToCore.HMBTCoreTelematicsReceiveData(container, command.length, command);
+        coreJni.HMBTCoreTelematicsReceiveData(container, command.length, command);
 
         validateResult(container, "Decryption failed. Check the parameters");
         return container.getResponse();
@@ -66,15 +66,20 @@ public class Telematics {
         }
 
         HMBTCoreInterface container = new HMBTCoreInterfaceImpl(serial, privateKey, certificate);
-        HMBTCore jniToCore = new HMBTCore(container);
+        HMBTCore coreJni = initCore(container);
 
 
-        jniToCore.HMBTCoreSendTelematicsCommand(container, serial, nonce, command.length, command);
+        coreJni.HMBTCoreSendTelematicsCommand(container, serial, nonce, command.length, command);
 
         validateResult(container, "Encryption failed. Check the parameters");
         return container.getResponse();
     }
 
+    private static HMBTCore initCore(HMBTCoreInterface container) {
+        HMBTCore jniToCore = new HMBTCore();
+        jniToCore.HMBTCoreInit(container);
+        return jniToCore;
+    }
 
     private static void validateCertificate(AccessCertificate certificate) throws CryptoException {
         if (certificate == null) {
