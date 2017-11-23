@@ -20,6 +20,7 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     HMBTCoreInterfaceImpl(byte[] serial, byte[] privateKey, AccessCertificate certificate) {
+        this.serial = serial;
         this.privateKey = privateKey;
         this.certificate = certificate;
     }
