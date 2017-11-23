@@ -21,10 +21,6 @@ public class HMBTCore {
         }
     }
 
-    public HMBTCore(HMBTCoreInterface container) {
-        this.HMBTCoreInit(container);
-    }
-
     //Init core
     //interface is class reference what implements HMBTCoreInterface
     //TT
