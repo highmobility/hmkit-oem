@@ -21,6 +21,10 @@ public class HMBTCore {
         }
     }
 
+    public HMBTCore(HMBTCoreInterface container) {
+        this.HMBTCoreInit(container);
+    }
+
     //Init core
     //interface is class reference what implements HMBTCoreInterface
     //TT
@@ -69,7 +73,7 @@ public class HMBTCore {
 
     public native void HMBTCoreCryptoAddSignature(byte[] data, int size, byte[] privateKey, byte[] signature);
 
-    //Telematics
+    //HMBTCoreInterfaceImpl
     public native void HMBTCoreTelematicsReceiveData(HMBTCoreInterface coreInterface, int length, byte[] data);
     public native void HMBTCoreSendTelematicsCommand(HMBTCoreInterface coreInterface, byte[] serial, byte[] nonce, int length, byte[] data);
 }

@@ -1,5 +1,7 @@
 package com.highmobility.btcore;
 
+import com.highmobility.crypto.AccessCertificate;
+
 public interface HMBTCoreInterface {
 
     //Characteristics id's
@@ -100,4 +102,22 @@ public interface HMBTCoreInterface {
 
     //crypto
     void HMCryptoHalGenerateNonce(byte[] nonce);
+
+
+    // other
+    byte[] getSerial();
+
+    void setSerial(byte[] serial);
+
+    byte[] getPrivateKey();
+
+    void setPrivateKey(byte[] privateKey);
+
+    AccessCertificate getCertificate();
+
+    void setCertificate(AccessCertificate certificate);
+
+    byte[] getResponse();
+
+    void setResponse(byte[] response);
 }
