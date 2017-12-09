@@ -24,8 +24,20 @@ public byte[] encryptCommand(byte[] privateKey, AccessCertificate certificate, b
 
 Use this to encrypt a command that will be sent to High-Mobility.
 
+Here is some pseudo code on how to encrypt/decrypt commands:
 
+https://bitbucket.org/highmobility/oem-backend-app/src/896b4a20ad20b58a3d3472c333fa46eacac87333/src/main/scala/com/hm/oem/hmcore/CoreTest.scala?at=master&fileviewer=file-view-default
 
+This is how you would create a keypair and and serial number with Crypto:
+
+```scala
+    val pair = Crypto.createKeypair()
+    val serialBytes = Crypto.createSerialNumber()
+
+    val serialNumber = Bytes.hexFromBytes(serialBytes)
+    val privateKey = pair.getPrivateKeyBase64()
+    val publicKey = pair.getPublicKeyBase64()
+```
 
 # Dependencies #
 
