@@ -36,7 +36,8 @@ CFLAGS += -I$(APP_SOURCES)\
 	-I$(HM_OPENSSL_C)\
 	-I/usr/local/opt/openssl/include\
 	-I/usr/include/openssl\
-	-I/usr/lib/jvm/default-java/include
+	-I/usr/lib/jvm/default-java/include\
+	-I/usr/lib/jvm/java-8-openjdk-amd64/include/linux/
 
 LFLAGS +=
 
