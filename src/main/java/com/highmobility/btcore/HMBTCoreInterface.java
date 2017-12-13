@@ -62,13 +62,13 @@ public interface HMBTCoreInterface {
 
     //Add remote device public key to storage
     //TT
-    int HMPersistenceHaladdPublicKey(byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int commandSize, byte[] command);
-    //Get remote device public key from storage
-    //TT
-    int HMPersistenceHalgetPublicKey(byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int[] commandSize, byte[] command);
-    //TT
-    int HMPersistenceHalgetPublicKeyByIndex(int index, byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int[] commandSize, byte[] command);
-    //TT
+    int HMPersistenceHaladdPublicKey(byte[] serial, byte[] cert, int size);
+	//Get remote device publick key from storage
+	//TT
+	int HMPersistenceHalgetPublicKey(byte[] serial, byte[] cert, int[] size);
+	//TT
+	int HMPersistenceHalgetPublicKeyByIndex(int index, byte[] cert, int[] size);
+	//TT
     int HMPersistenceHalgetPublicKeyCount(int[] count);
     //Remove remote device public key from storage
     //TT

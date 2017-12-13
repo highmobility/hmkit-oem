@@ -82,16 +82,9 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     @Override
-    public int HMPersistenceHalgetPublicKey(byte[] serial, byte[] publicKey, byte[] startDate,
-                                            byte[] endDate, int[] commandSize, byte[] command) {
-        copyBytes(certificate.getGainerPublicKey(), publicKey);
-        copyBytes(certificate.getStartDateBytes(), startDate);
-        copyBytes(certificate.getEndDateBytes(), endDate);
-        byte[] permissions = certificate.getPermissions();
-
-        copyBytes(permissions, command);
-        commandSize[0] = permissions.length;
-
+    public int HMPersistenceHalgetPublicKey(byte[] serial, byte[] cert, int[] size) {
+        copyBytes(certificate.getBytes(), cert);
+        size[0] = certificate.getBytes().length;
         return 0;
     }
 
@@ -163,12 +156,12 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     @Override
-    public int HMPersistenceHaladdPublicKey(byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int commandSize, byte[] command) {
+    public int HMPersistenceHaladdPublicKey(byte[] serial, byte[] cert, int size) {
         return 0;
     }
 
     @Override
-    public int HMPersistenceHalgetPublicKeyByIndex(int index, byte[] serial, byte[] publicKey, byte[] startDate, byte[] endDate, int[] commandSize, byte[] command) {
+    public int HMPersistenceHalgetPublicKeyByIndex(int index, byte[] cert, int[] size) {
         return 0;
     }
 

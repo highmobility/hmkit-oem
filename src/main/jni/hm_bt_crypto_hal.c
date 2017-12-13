@@ -13,28 +13,20 @@ uint32_t hm_bt_crypto_hal_aes_ecb_block_encrypt(uint8_t *key, uint8_t *cleartext
 
 uint32_t hm_bt_crypto_hal_ecc_get_ecdh(uint8_t *serial, uint8_t *ecdh){
 
-  uint8_t usepublic[64];
-  uint8_t start_date[5];
-  uint8_t end_date[5];
-  uint8_t command_size;
-  uint8_t command[16];
+  uint8_t cert[178];
+  uint16_t size = 0;
+  hm_certificate_t certificate;
 
-  if(hm_bt_persistence_hal_get_access_certificate(serial, usepublic, start_date, end_date, &command_size, command) == 1){
+  if(hm_bt_persistence_hal_get_access_certificate(serial, cert, &size) == 1){
     return 1;
   }
 
-  hm_bt_log_data(NULL,NULL,HM_BT_LOG_INFO,usepublic,64,"[HMCrypto] PUB");
+  hm_cert_get_as_struct(cert, &certificate);
 
-  uint8_t private[32];
-  if(hm_bt_persistence_hal_get_local_private_key(private) == 1){
-    return 1;
-  }
+  uint8_t priv[32];
+  hm_bt_persistence_hal_get_local_private_key(priv);
 
-  uint32_t retcode = hm_crypto_openssl_dh(private, usepublic, ecdh);
-
-  hm_bt_log_data(NULL,NULL,HM_BT_LOG_INFO,ecdh,32,"[HMCrypto] ECDH");
-
-  return retcode;
+  return hm_crypto_openssl_dh(priv, certificate.public_key, ecdh);
 }
 
 uint32_t hm_bt_crypto_hal_ecc_add_signature(uint8_t *data, uint8_t size, uint8_t *signature){
@@ -48,38 +40,37 @@ uint32_t hm_bt_crypto_hal_ecc_add_signature(uint8_t *data, uint8_t size, uint8_t
 
 uint32_t hm_bt_crypto_hal_ecc_validate_signature(uint8_t *data, uint8_t size, uint8_t *signature, uint8_t *serial){
 
-  uint8_t usepublic[64];
-  uint8_t start_date[5];
-  uint8_t end_date[5];
-  uint8_t command_size;
-  uint8_t command[16];
+  uint8_t cert[178];
+  uint16_t csize = 0;
+  hm_certificate_t certificate;
 
-  if(hm_bt_persistence_hal_get_access_certificate(serial, usepublic, start_date, end_date, &command_size, command) == 1){
+  if(hm_bt_persistence_hal_get_access_certificate(serial, cert, &csize) == 1){
     return 1;
   }
 
-  return hm_crypto_openssl_verify(data, size, usepublic, signature);
+  hm_cert_get_as_struct(cert, &certificate);
+
+  return hm_crypto_openssl_verify(data, size, certificate.public_key, signature);
 }
 
 uint32_t hm_bt_crypto_hal_ecc_validate_all_signatures(uint8_t *data, uint8_t size, uint8_t *signature){
   uint8_t count = 0;
   hm_bt_persistence_hal_get_access_certificate_count(&count);
 
-  uint8_t serial[9];
-  uint8_t usepublic[64];
-  uint8_t start_date[5];
-  uint8_t end_date[5];
-  uint8_t command_size;
-  uint8_t command[16];
+  uint8_t cert[178];
+  uint16_t csize = 0;
+  hm_certificate_t certificate;
 
   uint8_t i = 0;
   for( i=0 ; i < count ; i++ ){
 
-    if(hm_bt_persistence_hal_get_access_certificate_by_index(i, serial, usepublic, start_date, end_date, &command_size, command) == 1){
+    if(hm_bt_persistence_hal_get_access_certificate_by_index(i, cert, &csize) == 1){
       return 1;
     }
 
-    if(hm_crypto_openssl_verify(data, size, usepublic, signature) == 0 ){
+    hm_cert_get_as_struct(cert, &certificate);
+
+    if(hm_crypto_openssl_verify(data, size, certificate.public_key, signature) == 0 ){
       return 0;
     }
 
@@ -100,8 +91,8 @@ uint32_t hm_bt_crypto_hal_ecc_validate_oem_ca_signature(uint8_t *data, uint8_t s
   return hm_crypto_openssl_verify(data, size, ca_pub, signature);
 }
 
-uint32_t hm_bt_crypto_hal_hmac(uint8_t *key, uint8_t *data, uint8_t *hmac){
-  return hm_crypto_openssl_hmac(data, 256, key, hmac);
+uint32_t hm_bt_crypto_hal_hmac(uint8_t *key, uint8_t *data, uint16_t size, uint8_t *hmac){
+  return hm_crypto_openssl_hmac(data, size, key, hmac);
 }
 
 uint32_t hm_bt_crypto_hal_generate_nonce(uint8_t *nonce){
