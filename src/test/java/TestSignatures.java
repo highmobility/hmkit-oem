@@ -16,5 +16,8 @@ public class TestSignatures {
         byte[] sig = Crypto.sign(data, privateKey);
 
         assertTrue(Crypto.verify(data, sig, publicKey));
+
+        publicKey[2] = 0x00;
+        assertTrue(Crypto.verify(data, sig, publicKey) == false);
     }
 }
