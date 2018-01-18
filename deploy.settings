@@ -1,0 +1,6 @@
+siteUrl = https://github.com/highmobility/hm-java-crypto
+gitUrl = https://github.com/highmobility/hm-java-crypto
+version = 1.1.8
+groupId = com.highmobility
+licenses = ['GPL-3.0']
+id = hmkit-crypto
