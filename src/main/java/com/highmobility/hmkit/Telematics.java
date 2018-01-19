@@ -15,6 +15,7 @@ public class Telematics {
      * @param certificate the vehicle's Access Certificate
      * @param command     the command that will be decrypted
      * @return the decrypted command
+     * @throws CryptoException When arguments are invalid or the decryption failed
      */
     public static byte[] decryptCommand(byte[] privateKey, AccessCertificate certificate, byte[] command)
             throws CryptoException {
@@ -46,6 +47,7 @@ public class Telematics {
      * @param serial      the vehicle's serial number
      * @param command     the command that will be encrypted
      * @return the encrypted command
+     * @throws CryptoException When arguments are invalid or the decryption failed
      */
     public static byte[] encryptCommand(byte[] privateKey, AccessCertificate certificate, byte[] nonce,
                                         byte[] serial, byte[] command) throws CryptoException {
@@ -98,5 +100,4 @@ public class Telematics {
             throw new CryptoException(CryptoException.Type.INTERNAL_ERROR, message);
         }
     }
-
 }

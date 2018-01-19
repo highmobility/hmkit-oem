@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile('com.highmobility:hmkit-crypto:1.1.5')
+    compile('com.highmobility:hmkit-crypto:1.1.9')
     testCompile group: 'junit', name: 'junit', version: '4.8'
 }
 
