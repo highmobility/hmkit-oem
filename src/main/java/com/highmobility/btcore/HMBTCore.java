@@ -20,6 +20,7 @@
 
 package com.highmobility.btcore;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -37,7 +38,8 @@ public class HMBTCore {
             }
         }
         else {
-            System.loadLibrary("hmbtcore");
+            File file = new File("./lib/libhmbtcore.jnilib");
+            System.load(file.getAbsolutePath());
         }
     }
 
