@@ -1,6 +1,12 @@
 # What is this repository for? #
 
-This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cloud. 
+This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cloud.
+
+# Environment #
+
+HMKit OEM requires our core binary and currently one built for Linux is included in the /lib folder.
+This means the project can only be built in Linux. Contact High-Mobility if you require binaries for other
+systems.
 
 # How to encrypt/decrypt commands? #
 
