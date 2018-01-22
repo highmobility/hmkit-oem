@@ -4,7 +4,7 @@ This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cl
 
 # Environment #
 
-HMKit OEM requires our core binary and currently one built for Linux is included in the /lib folder.
+HMKit OEM requires our core binary and currently includes one that is built for Linux in the /lib folder.
 This means the project can only be built in Linux. Contact High-Mobility if you require binaries for other
 systems.
 
