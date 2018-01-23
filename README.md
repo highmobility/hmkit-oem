@@ -32,7 +32,7 @@ Use this to encrypt a command that will be sent to High-Mobility.
 
 Here is some pseudo code on how to encrypt/decrypt commands:
 
-https://bitbucket.org/highmobility/oem-backend-app/src/896b4a20ad20b58a3d3472c333fa46eacac87333/src/main/scala/com/hm/oem/hmcore/CoreTest.scala?at=master&fileviewer=file-view-default
+https://gist.github.com/ttiganik/5064c746aee8d41efc093ce248e74a2e
 
 This is how you would create a keypair and and serial number with Crypto:
 
