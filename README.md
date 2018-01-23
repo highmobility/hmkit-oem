@@ -6,7 +6,7 @@ This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cl
 
 hmkit-utils, hmkit-crypto
 
-### Usage
+### Install
 
 Releases are pushed to jcenter. To include hmkit-oem in your project, add to build.gradle:
 
