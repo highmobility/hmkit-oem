@@ -43,7 +43,7 @@ public class Telematics {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
-        if (command == null || command.length == 0) {
+        if (command == null) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
         }
 
@@ -75,7 +75,7 @@ public class Telematics {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
-        if (command == null || command.length == 0) {
+        if (command == null) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
         }
 
