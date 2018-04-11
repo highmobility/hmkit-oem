@@ -1,14 +1,34 @@
-# What is this repository for? #
+# HMKit OEM
 
 This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cloud.
 
-# Environment #
+### Dependencies
+
+hmkit-utils, hmkit-crypto
+
+### Install
+
+Releases are pushed to jcenter. To include hmkit-oem in your project, add to build.gradle:
+
+```
+repositories {
+  jcenter()
+}
+
+dependencies {
+  implementation('com.highmobility:hmkit-oem:1.1.2')
+}
+```
+
+Find the latest version name in https://bintray.com/high-mobility/maven/hmkit-oem
+
+### Environment
 
 HMKit OEM requires our core binary and currently includes one that is built for Linux in the /lib folder.
 This means the project can only be built in Linux. Contact High-Mobility if you require binaries for other
 systems.
 
-# How to encrypt/decrypt commands? #
+### How to encrypt/decrypt commands?
 
 This library is meant to be used in conjunction with hmkit-crypto. The latter is used to create key-pairs, certificates and sign the data.
 Use the crypto lib to create key pairs and Access certificates for your vehicles. They will be used in the command's encryption/decryption.
@@ -44,7 +64,3 @@ This is how you would create a keypair and and serial number with Crypto:
     val privateKey = pair.getPrivateKeyBase64()
     val publicKey = pair.getPublicKeyBase64()
 ```
-
-# Dependencies #
-
-hmkit-utils, hmit-crypto
