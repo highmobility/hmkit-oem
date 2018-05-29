@@ -22,10 +22,17 @@ sourceCompatibility = 1.8
 
 repositories {
     jcenter()
+    maven {
+        url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
+        credentials {
+            username System.properties['devReadUser']
+            password System.properties['devReadPassword']
+        }
+    }
 }
 
 dependencies {
-    compile('com.highmobility:hmkit-crypto:1.1.9')
+    compile('com.highmobility:hmkit-crypto:1.2.0-dev')
     testCompile group: 'junit', name: 'junit', version: '4.8'
 }
 
