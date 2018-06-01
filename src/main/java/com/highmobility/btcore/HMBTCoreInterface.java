@@ -21,6 +21,7 @@
 package com.highmobility.btcore;
 
 import com.highmobility.crypto.AccessCertificate;
+import com.highmobility.value.Bytes;
 
 public interface HMBTCoreInterface {
 
@@ -137,7 +138,7 @@ public interface HMBTCoreInterface {
 
     void setCertificate(AccessCertificate certificate);
 
-    byte[] getResponse();
+    Bytes getResponse();
 
     void setResponse(byte[] response);
 }

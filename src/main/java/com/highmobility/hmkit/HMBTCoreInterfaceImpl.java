@@ -23,6 +23,7 @@ package com.highmobility.hmkit;
 import com.highmobility.btcore.HMBTCoreInterface;
 import com.highmobility.btcore.HMDevice;
 import com.highmobility.crypto.AccessCertificate;
+import com.highmobility.value.Bytes;
 
 public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
 
@@ -76,8 +77,8 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     @Override
-    public byte[] getResponse() {
-        return response;
+    public Bytes getResponse() {
+        return new Bytes(response);
     }
 
     @Override

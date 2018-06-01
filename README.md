@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-  implementation('com.highmobility:hmkit-oem:1.1.2')
+  implementation('com.highmobility:hmkit-oem:1.2.0')
 }
 ```
 
@@ -36,7 +36,7 @@ Use the crypto lib to create key pairs and Access certificates for your vehicles
 The main access point for this library is the Telematics class. Here you find methods
 
 ```java
-public byte[] decryptCommand(byte[] privateKey, AccessCertificate certificate, byte[] command) throws CryptoException
+public byte[] decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command) throws CryptoException
 ```
 
 Use this to decrypt a command that was received from High-Mobility.
@@ -44,8 +44,8 @@ Use this to decrypt a command that was received from High-Mobility.
 And
 
 ```java
-public byte[] encryptCommand(byte[] privateKey, AccessCertificate certificate, byte[] nonce,
-                                byte[] serial, byte[] command) throws CryptoException
+public byte[] encryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes nonce,
+                                DeviceSerial serial, Bytes command) throws CryptoException
 ```
 
 Use this to encrypt a command that will be sent to High-Mobility.
@@ -60,7 +60,7 @@ This is how you would create a keypair and and serial number with Crypto:
     val pair = Crypto.createKeypair()
     val serialBytes = Crypto.createSerialNumber()
 
-    val serialNumber = Bytes.hexFromBytes(serialBytes)
+    val serialNumber = ByteUtils.hexFromBytes(serialBytes)
     val privateKey = pair.getPrivateKeyBase64()
     val publicKey = pair.getPublicKeyBase64()
 ```
