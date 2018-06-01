@@ -4,3 +4,4 @@ version = 1.2.0
 groupId = com.highmobility
 licenses = ['GPL-3.0']
 id = hmkit-oem
+repo=gradle-dev-local
