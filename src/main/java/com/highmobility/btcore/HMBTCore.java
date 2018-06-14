@@ -20,7 +20,6 @@
 
 package com.highmobility.btcore;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,8 +37,7 @@ public class HMBTCore {
                 e.printStackTrace();
             }
         } else {
-            // This is for junit only because this code is not run by anything else, only jar is
-            // created. only works in linux
+            // This is only used by junit and it only works in linux.
             Path resourceDirectory = Paths.get("");
             String abs = resourceDirectory.toAbsolutePath().getParent().getParent() + "/lib/libhmbtcore.jnilib";
             System.load(abs);

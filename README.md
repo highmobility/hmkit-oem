@@ -36,7 +36,7 @@ Use the crypto lib to create key pairs and Access certificates for your vehicles
 The main access point for this library is the Telematics class. Here you find methods
 
 ```java
-public byte[] decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command) throws CryptoException
+public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command) throws CryptoException
 ```
 
 Use this to decrypt a command that was received from High-Mobility.
@@ -44,23 +44,14 @@ Use this to decrypt a command that was received from High-Mobility.
 And
 
 ```java
-public byte[] encryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes nonce,
+public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes nonce,
                                 DeviceSerial serial, Bytes command) throws CryptoException
 ```
 
 Use this to encrypt a command that will be sent to High-Mobility.
 
-Here is some pseudo code on how to encrypt/decrypt commands:
+### Tutorial
 
-https://gist.github.com/ttiganik/5064c746aee8d41efc093ce248e74a2e
+There is a tutorial about the general flow OEM-s can follow to implement our SDK:
 
-This is how you would create a keypair and and serial number with Crypto:
-
-```scala
-    val pair = Crypto.createKeypair()
-    val serialBytes = Crypto.createSerialNumber()
-
-    val serialNumber = ByteUtils.hexFromBytes(serialBytes)
-    val privateKey = pair.getPrivateKeyBase64()
-    val publicKey = pair.getPublicKeyBase64()
-```
+https://developers.high-mobility.com/#/learn/tutorials/for-carmakers/cloud/tutorial
