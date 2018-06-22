@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    compile('com.highmobility:hmkit-crypto:1.2.0')
+    compile('com.highmobility:hmkit-crypto:1.3.1')
     testCompile group: 'junit', name: 'junit', version: '4.8'
 }
 

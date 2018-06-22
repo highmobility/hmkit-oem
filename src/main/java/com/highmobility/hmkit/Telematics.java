@@ -23,9 +23,9 @@ package com.highmobility.hmkit;
 import com.highmobility.btcore.HMBTCore;
 import com.highmobility.btcore.HMBTCoreInterface;
 import com.highmobility.crypto.AccessCertificate;
+import com.highmobility.crypto.value.DeviceSerial;
+import com.highmobility.crypto.value.PrivateKey;
 import com.highmobility.value.Bytes;
-import com.highmobility.value.DeviceSerial;
-import com.highmobility.value.PrivateKey;
 
 public class Telematics {
 
@@ -40,21 +40,24 @@ public class Telematics {
      * @return the decrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command)
+    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes command)
             throws CryptoException {
 
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
         if (command == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
+            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
+                    invalidArgumentExceptionMessage);
         }
 
-        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(privateKey.getByteArray(), certificate);
+        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(privateKey.getByteArray(),
+                certificate);
         HMBTCore coreJni = initCore(container);
 
-
-        coreJni.HMBTCoreTelematicsReceiveData(container, command.getLength(), command.getByteArray());
+        coreJni.HMBTCoreTelematicsReceiveData(container, command.getLength(), command
+                .getByteArray());
 
         validateResult(container, "Decryption failed. Check the parameters");
         return container.getResponse();
@@ -72,29 +75,34 @@ public class Telematics {
      * @return the encrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes nonce,
-                                        DeviceSerial serial, Bytes command) throws CryptoException {
+    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes nonce,
+                                       DeviceSerial serial, Bytes command) throws CryptoException {
 
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
         if (command == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
+            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
+                    invalidArgumentExceptionMessage);
         }
 
         if (nonce == null || nonce.getLength() != 9) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
+            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
+                    invalidArgumentExceptionMessage);
         }
 
         if (serial == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
+            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
+                    invalidArgumentExceptionMessage);
         }
 
-        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(serial.getByteArray(), privateKey.getByteArray(), certificate);
+        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(serial.getByteArray(), privateKey
+                .getByteArray(), certificate);
         HMBTCore coreJni = initCore(container);
 
-
-        coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce.getByteArray(), command.getLength(), command.getByteArray());
+        coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
+                .getByteArray(), command.getLength(), command.getByteArray());
 
         validateResult(container, "Encryption failed. Check the parameters");
         return container.getResponse();
@@ -108,17 +116,20 @@ public class Telematics {
 
     private static void validateCertificate(AccessCertificate certificate) throws CryptoException {
         if (certificate == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
+            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
+                    invalidArgumentExceptionMessage);
         }
     }
 
     private static void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
         if (privateKey == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT, invalidArgumentExceptionMessage);
+            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
+                    invalidArgumentExceptionMessage);
         }
     }
 
-    private static void validateResult(HMBTCoreInterface container, String message) throws CryptoException {
+    private static void validateResult(HMBTCoreInterface container, String message) throws
+            CryptoException {
         if (container.getResponse() == null) {
             throw new CryptoException(CryptoException.Type.INTERNAL_ERROR, message);
         }
