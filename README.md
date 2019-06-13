@@ -54,4 +54,4 @@ Use this to encrypt a command that will be sent to High-Mobility.
 
 There is a tutorial about the general flow OEM-s can follow to implement our SDK:
 
-https://developers.high-mobility.com/#/learn/tutorials/for-carmakers/cloud/tutorial
+https://high-mobility.com/learn/tutorials/for-carmakers/cloud/tutorial/
