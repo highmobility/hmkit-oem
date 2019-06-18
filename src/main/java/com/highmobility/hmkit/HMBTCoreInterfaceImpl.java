@@ -46,42 +46,34 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
         this.certificate = certificate;
     }
 
-    @Override
     public byte[] getSerial() {
         return serial;
     }
 
-    @Override
     public void setSerial(byte[] serial) {
         this.serial = serial;
     }
 
-    @Override
     public byte[] getPrivateKey() {
         return privateKey;
     }
 
-    @Override
     public void setPrivateKey(byte[] privateKey) {
         this.privateKey = privateKey;
     }
 
-    @Override
     public AccessCertificate getCertificate() {
         return certificate;
     }
 
-    @Override
     public void setCertificate(AccessCertificate certificate) {
         this.certificate = certificate;
     }
 
-    @Override
     public Bytes getResponse() {
         return new Bytes(response);
     }
 
-    @Override
     public void setResponse(byte[] response) {
         this.response = response;
     }
@@ -235,6 +227,11 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     @Override public void HMCryptoHalGenerateNonce(byte[] nonce) {
+
+    }
+
+    @Override
+    public void HMApiCallbackRevokeResponse(HMDevice device, byte[] data, int length, int status) {
 
     }
 

@@ -1,137 +1,32 @@
 /*
- * HMKit OEM - HMKit for OEM
- * Copyright (C) 2018 High-Mobility <licensing@high-mobility.com>
+ * Class NativeUtils is published under the The MIT License:
  *
- * This file is part of HMKit OEM.
+ * Copyright (c) 2012 Adam Heinrich <adam@adamh.cz>
  *
- * HMKit OEM is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * HMKit OEM is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
  *
- * You should have received a copy of the GNU General Public License
- * along with HMKit OEM.  If not, see <http://www.gnu.org/licenses/>.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
-
 package com.highmobility.hmkit;
 
-import com.highmobility.btcore.HMBTCore;
-import com.highmobility.btcore.HMBTCoreInterface;
-import com.highmobility.crypto.AccessCertificate;
-import com.highmobility.crypto.value.DeviceSerial;
-import com.highmobility.crypto.value.PrivateKey;
-import com.highmobility.value.Bytes;
-
+/**
+ * @deprecated use {@link HMKit} instead.
+ */
+@Deprecated
 public class Telematics {
 
-    private static final String invalidArgumentExceptionMessage = "Invalid argument";
-
-    /**
-     * Decrypt an incoming command.
-     *
-     * @param privateKey  the vehicle's private key
-     * @param certificate the vehicle's Access Certificate
-     * @param command     the command that will be decrypted
-     * @return the decrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
-     */
-    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes command)
-            throws CryptoException {
-
-        validatePrivateKey(privateKey);
-        validateCertificate(certificate);
-
-        if (command == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(privateKey.getByteArray(),
-                certificate);
-        HMBTCore coreJni = initCore(container);
-
-        coreJni.HMBTCoreTelematicsReceiveData(container, command.getLength(), command
-                .getByteArray());
-
-        validateResult(container, "Decryption failed. Check the parameters");
-        return container.getResponse();
-    }
-
-    /**
-     * Encrypt a command so that it can be sent to the HM server. The encrypted command will be
-     * returned in CoreCallback's didEncryptCommand.
-     *
-     * @param privateKey  the vehicle's private key
-     * @param certificate the vehicle's Access Certificate
-     * @param nonce       the nonce
-     * @param serial      the vehicle's serial number
-     * @param command     the command that will be encrypted
-     * @return the encrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
-     */
-    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes nonce,
-                                       DeviceSerial serial, Bytes command) throws CryptoException {
-
-        validatePrivateKey(privateKey);
-        validateCertificate(certificate);
-
-        if (command == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        if (nonce == null || nonce.getLength() != 9) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        if (serial == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(serial.getByteArray(), privateKey
-                .getByteArray(), certificate);
-        HMBTCore coreJni = initCore(container);
-
-        coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
-                .getByteArray(), command.getLength(), command.getByteArray());
-
-        validateResult(container, "Encryption failed. Check the parameters");
-        return container.getResponse();
-    }
-
-    private static HMBTCore initCore(HMBTCoreInterface container) {
-        HMBTCore jniToCore = new HMBTCore();
-        jniToCore.HMBTCoreInit(container);
-        return jniToCore;
-    }
-
-    private static void validateCertificate(AccessCertificate certificate) throws CryptoException {
-        if (certificate == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-    }
-
-    private static void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
-        if (privateKey == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-    }
-
-    private static void validateResult(HMBTCoreInterface container, String message) throws
-            CryptoException {
-        if (container.getResponse() == null) {
-            throw new CryptoException(CryptoException.Type.INTERNAL_ERROR, message);
-        }
-    }
 }

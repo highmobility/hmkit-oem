@@ -4,7 +4,7 @@ This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cl
 
 ### Dependencies
 
-hmkit-utils, hmkit-crypto
+hmkit-utils, hmkit-crypto, hmkit-core-jni
 
 ### Install
 
@@ -55,3 +55,34 @@ Use this to encrypt a command that will be sent to High-Mobility.
 There is a tutorial about the general flow OEM-s can follow to implement our SDK:
 
 https://high-mobility.com/learn/tutorials/for-carmakers/cloud/tutorial/
+
+
+### 
+### Setup
+
+* git submodule update --init --recursive
+* import the Gradle project.
+* Build the core: TODO: ??? how
+* Build hmkit-oem module.
+* If there are errors: Try `Gradle clean`, `File > Invalidate caches and restart`.
+
+
+### Release
+#### Pre checks
+
+* run the unit-tests
+
+#### Release
+
+// TODO: make a test release
+
+This project bundles all of the OEM SDK packages: hmkit-oem, hmkit-crypto and hmkit-utils.
+
+For a release, update the "version = 1.5.0" in all of the deploy.settings files(if needed).
+
+call ./gradlew artifactoryPublish to release all of the packages.
+call ./gradlew :hmkit-oem:artifactoryPublish to release a specific package.
+
+If pushing the same version number, in dev package will be overwritten, in release rejected.
+
+If releasing to prod, also call "./gradlew bintrayUpload".
