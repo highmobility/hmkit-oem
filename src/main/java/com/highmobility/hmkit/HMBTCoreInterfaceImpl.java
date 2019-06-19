@@ -115,6 +115,11 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
         return 0;
     }
 
+    @Override public int HMBTHalLog(int logLevel, byte[] string) {
+        HMKit.logger.debug(new String(string));
+        return 0;
+    }
+
     @Override public int HMBTHalScanStart() {
         return 0;
     }

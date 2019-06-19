@@ -28,6 +28,9 @@ import com.highmobility.crypto.value.DeviceSerial;
 import com.highmobility.crypto.value.PrivateKey;
 import com.highmobility.value.Bytes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,6 +40,8 @@ public class HMKit {
     private static final String invalidArgumentExceptionMessage = "Invalid argument";
 
     private static volatile HMKit instance;
+
+    public static Logger logger = LoggerFactory.getLogger(HMKit.class);
 
     public Crypto crypto;
 
@@ -148,7 +153,7 @@ public class HMKit {
 
         HMBTCoreInterfaceImpl container = new HMBTCoreInterfaceImpl(serial.getByteArray(),
                 privateKey
-                .getByteArray(), certificate);
+                        .getByteArray(), certificate);
         HMBTCore coreJni = initCore(container);
 
         coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
