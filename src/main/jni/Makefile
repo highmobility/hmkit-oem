@@ -10,6 +10,7 @@ dir += $(HM_BT_CORE)
 JAVA_HOME:=/usr/lib/jvm/default-java
 LOCAL_PATH := $(shell cd ../../../hm-java-core-jni/src/main/jni/; pwd)
 
+# for 32bit prepend -m32
 CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin
 
 #add source paths to vpath
@@ -26,11 +27,11 @@ SRC += $(LOCAL_PATH)/hm_bt_persistence_hal.c
 
 LOCAL_SRC_FILES += ../../../../crypto-c/Crypto/Crypto.c
 
-LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_bt_core.c
-LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_bt_log.c
-LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_cert.c
-LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_conf_access.c
-LOCAL_SRC_FILES += ../../../../high-mobility-bt-core/hm_api.c
+LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_bt_core.c
+LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_bt_log.c
+LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_cert.c
+LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_conf_access.c
+LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_api.c
 
 CFLAGS += -Wall -std=c99 -fPIC
 
@@ -55,7 +56,16 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^ -L/home/n/Downloads/openssl-1.0.2m -L/usr/local/opt/openssl/lib -L/usr/lib -lssl -lcrypto
+	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^ -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
+	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86_64 -L/usr/lib -lssl -lcrypto
+
+# clean:
+#	rm -f $(TARGET) *.o *~
+
+SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH)
+DIRS := . $(shell find $(SUBDIR_ROOTS) -type d)
+GARBAGE_PATTERNS := *.o *~ core .depend .*.cmd *.ko *.mod.c
+GARBAGE := $(foreach DIR,$(DIRS),$(addprefix $(DIR)/,$(GARBAGE_PATTERNS)))
 
 clean:
-	rm -f $(TARGET) *.o *~
+	rm -rf $(GARBAGE)
