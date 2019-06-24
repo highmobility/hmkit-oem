@@ -56,8 +56,10 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^ -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
-	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86_64 -L/usr/lib -lssl -lcrypto
+	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^
+	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86_64 \
+	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
+	 -L/usr/lib -lssl -lcrypto
 
 # clean:
 #	rm -f $(TARGET) *.o *~
