@@ -18,6 +18,9 @@ CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin -D _GNU_SOURCE
 #add source paths to vpath
 VPATH = $(dir)
 
+# create build dir
+_dummy := $(shell mkdir -p ../../../lib)
+
 APP_SOURCES := ./
 
 SRC += $(LOCAL_PATH)/hmbtcore.c
@@ -62,9 +65,6 @@ $(TARGET): $(SRC:.c=.o)
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86_64\
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
 	 -L/usr/lib -lssl -lcrypto
-
-# clean:
-#	rm -f $(TARGET) *.o *~
 
 SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH)
 DIRS := . $(shell find $(SUBDIR_ROOTS) -type d)

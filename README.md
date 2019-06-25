@@ -62,12 +62,19 @@ https://high-mobility.com/learn/tutorials/for-carmakers/cloud/tutorial/
 
 * git submodule update --init --recursive
 * import the Gradle project.
-* Build the core: TODO: ??? how
-* Build hmkit-oem module.
+* Build the core: `cd src/main/jni && make && cd -`
+* Run the TestSignatures.java tests.
 * If there are errors: Try `Gradle clean`, `File > Invalidate caches and restart`.
 
 
+### Building the core
+Core is not included in the repository and needs to be built on first clone
+```
+cd src/main/jni && make && cd -
+```
+
 ### Release
+
 #### Pre checks
 
 * run the unit-tests
