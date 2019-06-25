@@ -94,9 +94,7 @@ public class HMKit {
      * @return the decrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                Bytes command)
-            throws CryptoException {
+    public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command) {
 
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
@@ -131,8 +129,7 @@ public class HMKit {
      */
     public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
                                 Bytes nonce,
-                                DeviceSerial serial, Bytes command) throws CryptoException {
-// TODO: 6/25/19 remove throws
+                                DeviceSerial serial, Bytes command) {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 

@@ -20,7 +20,7 @@
 
 package com.highmobility.hmkit;
 
-public class CryptoException extends Exception {
+public class CryptoException extends RuntimeException {
     enum Type {
         INTERNAL_ERROR, INVALID_ARGUMENT
     }
