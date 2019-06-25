@@ -132,7 +132,7 @@ public class HMKit {
     public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
                                 Bytes nonce,
                                 DeviceSerial serial, Bytes command) throws CryptoException {
-
+// TODO: 6/25/19 remove throws
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 

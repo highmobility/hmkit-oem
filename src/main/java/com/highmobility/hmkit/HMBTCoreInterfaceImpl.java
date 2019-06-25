@@ -96,8 +96,8 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
 
     @Override
     public int HMPersistenceHalgetPublicKey(byte[] serial, byte[] cert, int[] size) {
-        copyBytes(certificate.getBytes().getByteArray(), cert);
-        size[0] = certificate.getBytes().getLength();
+        copyBytes(certificate.getByteArray(), cert);
+        size[0] = certificate.getLength();
         return 0;
     }
 
