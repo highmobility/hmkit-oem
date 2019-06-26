@@ -30,25 +30,21 @@ systems.
 
 ### How to encrypt/decrypt commands?
 
-This library is meant to be used in conjunction with hmkit-crypto. The latter is used to create key-pairs, certificates and sign the data.
-Use the crypto lib to create key pairs and Access certificates for your vehicles. They will be used in the command's encryption/decryption.
-
-The main access point for this library is the Telematics class. Here you find methods
+The main access point for this library is the HMKit class. Here you find methods:
 
 ```java
 public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command) throws CryptoException
 ```
-
-Use this to decrypt a command that was received from High-Mobility.
-
-And
 
 ```java
 public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes nonce,
                                 DeviceSerial serial, Bytes command) throws CryptoException
 ```
 
-Use this to encrypt a command that will be sent to High-Mobility.
+Use these to encrypt/decrypt a command that will be sent to High-Mobility.
+
+Use the Crypto object in HMKit to create key pairs and Access certificates for your vehicles. 
+These need to be forwarded to the command's encryption/decryption.
 
 ### Tutorial
 
