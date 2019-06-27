@@ -13,13 +13,16 @@ version = artifact.version
 sourceCompatibility = 1.8
 
 dependencies {
-    implementation project(':hmkit-core-jni')
-    implementation project(':hmkit-utils')
-    implementation project(':hmkit-crypto')
+    if (project.releaseType == 0) {
+        implementation project(':hmkit-crypto')
+        implementation project(':hmkit-utils')
+    } else {
+        implementation deps.crypto
+    }
 
     implementation 'org.slf4j:slf4j-api:1.7.25'
 
-    testCompile group: 'junit', name: 'junit', version: '4.8'
+    testImplementation group: 'junit', name: 'junit', version: '4.8'
     testImplementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
@@ -79,6 +82,12 @@ bintray {
         }
     }
 }*/
+
+sourceSets.main {
+    java {
+        srcDir '../hm-java-core-jni/src/main/java/com/highmobility/btcore'
+    }
+}
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.java.srcDirs
