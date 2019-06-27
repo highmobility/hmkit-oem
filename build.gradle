@@ -1,10 +1,12 @@
-repositories {
-    jcenter()
-    maven {
-        url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
-        credentials {
-            username System.properties['devReadUser']
-            password System.properties['devReadPassword']
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
+            credentials {
+                username System.properties['devReadUser']
+                password System.properties['devReadPassword']
+            }
         }
     }
 }
