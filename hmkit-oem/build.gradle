@@ -16,6 +16,7 @@ dependencies {
     if (project.releaseType == 0) {
         implementation project(':hmkit-crypto')
         implementation project(':hmkit-utils')
+        implementation project(':hmkit-core-jni')
     } else {
         implementation deps.crypto
     }
