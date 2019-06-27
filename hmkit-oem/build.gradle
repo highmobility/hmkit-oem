@@ -85,7 +85,8 @@ bintray {
 
 sourceSets.main {
     java {
-        srcDir '../hm-java-core-jni/src/main/java/com/highmobility/btcore'
+        // add the classes from jni repo
+        srcDirs '../hm-java-core-jni/src/main/java/com/highmobility/btcore'
     }
 }
 

@@ -10,7 +10,7 @@ HM_BT_CORE := $(shell cd ../../../../high-mobility-bt-core/; pwd)
 dir += $(HM_BT_CORE)
 
 JAVA_HOME:=/usr/lib/jvm/default-java
-LOCAL_PATH := $(shell cd ../../../../hm-java-core-jni/src/main/jni/; pwd)
+LOCAL_PATH := $(shell cd ../../../../hm-java-core-jni/jni/; pwd)
 
 # for 32bit prepend -m32
 CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin -D _GNU_SOURCE
