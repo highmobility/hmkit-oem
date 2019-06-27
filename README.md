@@ -58,15 +58,15 @@ https://high-mobility.com/learn/tutorials/for-carmakers/cloud/tutorial/
 
 * git submodule update --init --recursive
 * import the Gradle project.
-* Build the core: `cd src/main/jni && make && cd -`
-* Run the TestSignatures.java tests.
+* Build the core: `cd hmkit-oem/src/main/jni && make && cd -`
+* Run the Tests.java tests.
 * If there are errors: Try `Gradle clean`, `File > Invalidate caches and restart`.
 
 
 ### Building the core
 Core is not included in the repository and needs to be built on first clone
 ```
-cd src/main/jni && make && cd -
+cd hmkit-oem/src/main/jni && make && cd -
 ```
 
 ### Release
@@ -81,7 +81,8 @@ cd src/main/jni && make && cd -
 
 This project bundles all of the OEM SDK packages: hmkit-oem, hmkit-crypto and hmkit-utils.
 
-For a release, update the "version = 1.5.0" in all of the deploy.settings files(if needed).
+For a release, update the "version = 1.5.0" in the deploy.settings files of the updated packages.
+Make sure you have artifactory credentials in ~/.gradle/gradle.properties.
 
 call ./gradlew artifactoryPublish to release all of the packages.
 call ./gradlew :hmkit-oem:artifactoryPublish to release a specific package.

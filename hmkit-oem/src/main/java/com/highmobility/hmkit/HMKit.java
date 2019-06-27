@@ -43,7 +43,7 @@ public class HMKit {
 
     public static Logger logger = LoggerFactory.getLogger(HMKit.class);
 
-    public Crypto crypto;
+    public com.highmobility.crypto.Crypto crypto;
 
     static {
         // load the core
@@ -57,7 +57,7 @@ public class HMKit {
         } else {
             // This is only used by junit and it only works in linux.
             Path resourceDirectory = Paths.get("");
-            String abs = resourceDirectory.toAbsolutePath() + "/lib/libhmbtcore.jnilib";
+            String abs = resourceDirectory.toAbsolutePath() + "/../lib/libhmbtcore.jnilib";
             System.load(abs);
         }
     }

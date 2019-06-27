@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestSignatures {
+public class Tests {
     // only work on linux
     @Test public void testSignatures() {
         Crypto crypto = HMKit.getInstance().crypto;

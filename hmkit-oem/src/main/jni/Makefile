@@ -1,16 +1,16 @@
 # This is for building in Linux
 
 # Include openssl crypto
-include ../../../crypto-c/Crypto/Makefile
-HM_OPENSSL_C  := $(shell cd ../../../crypto-c/Crypto/; pwd)
+include ../../../../crypto-c/Crypto/Makefile
+HM_OPENSSL_C  := $(shell cd ../../../../crypto-c/Crypto/; pwd)
 dir += $(HM_OPENSSL_C)
 #Include HM bt core
-include ../../../high-mobility-bt-core/Makefile
-HM_BT_CORE := $(shell cd ../../../high-mobility-bt-core/; pwd)
+include ../../../../high-mobility-bt-core/Makefile
+HM_BT_CORE := $(shell cd ../../../../high-mobility-bt-core/; pwd)
 dir += $(HM_BT_CORE)
 
 JAVA_HOME:=/usr/lib/jvm/default-java
-LOCAL_PATH := $(shell cd ../../../hm-java-core-jni/src/main/jni/; pwd)
+LOCAL_PATH := $(shell cd ../../../../hm-java-core-jni/src/main/jni/; pwd)
 
 # for 32bit prepend -m32
 CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin -D _GNU_SOURCE
@@ -18,8 +18,8 @@ CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin -D _GNU_SOURCE
 #add source paths to vpath
 VPATH = $(dir)
 
-# create build dir
-_dummy := $(shell mkdir -p ../../../lib)
+# this will create the build dir if does not exist
+_create_build_dir := $(shell mkdir -p ../../../../lib)
 
 APP_SOURCES := ./
 
@@ -61,7 +61,7 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o ../../../lib/$(TARGET) -shared $^\
+	$(CC) $(CFLAGS) -o ../../../../lib/$(TARGET) -shared $^\
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86_64\
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
 	 -L/usr/lib -lssl -lcrypto
