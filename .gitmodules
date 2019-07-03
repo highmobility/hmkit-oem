@@ -10,3 +10,6 @@
 [submodule "hm-java-crypto"]
 	path = hm-java-crypto
 	url = git@github.com:highmobility/hm-java-crypto.git
+[submodule "hm-java-utils"]
+	path = hm-java-utils
+	url = git@github.com:highmobility/hm-java-utils.git

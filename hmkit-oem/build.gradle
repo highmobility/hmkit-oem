@@ -1,5 +1,7 @@
 plugins {
-    id "com.jfrog.artifactory" version "4.9.7"
+    // Currently the "plugins" notation cannot be used for applying the plugin for sub projects, 
+    // when used from the root build script
+    id "com.jfrog.artifactory" version "4.9.7" 
     id "java"
     id "maven"
 }
@@ -19,6 +21,7 @@ dependencies {
         implementation project(':hmkit-core-jni')
     } else {
         implementation deps.crypto
+        implementation deps.corejni
     }
 
     implementation 'org.slf4j:slf4j-api:1.7.25'

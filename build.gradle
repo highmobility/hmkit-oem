@@ -28,12 +28,14 @@ ext {
 
 // these are not release numbers. release numbers are in deploy.settings files.
 ext.ver = [
-        crypto    : "1.4.3",
+        corejni   : "1.0.0",
+        crypto    : "1.4.4-dev",
         utils     : "1.4.3",
         hmkit     : "1.4.4"
 ]
 
 ext.deps = [
+        "corejni" : "com.highmobility:hmkit-core-jni:${ver.corejni}",
         "hmkit"   : "com.highmobility:hmkit-oem:${ver.hmkit}",
         "crypto"  : "com.highmobility:hmkit-crypto:${ver.crypto}",
         "utils"   : "com.highmobility:hmkit-utils:${ver.utils}"

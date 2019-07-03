@@ -5,4 +5,4 @@ include ':hmkit-crypto'
 
 project(':hmkit-core-jni').projectDir = new File('hm-java-core-jni/')
 project(':hmkit-crypto').projectDir = new File('hm-java-crypto/')
-project(':hmkit-utils').projectDir = new File('hm-java-crypto/hm-java-utils/')
+project(':hmkit-utils').projectDir = new File('hm-java-utils/')
