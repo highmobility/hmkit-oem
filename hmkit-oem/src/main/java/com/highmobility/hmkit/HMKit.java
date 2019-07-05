@@ -47,7 +47,9 @@ public class HMKit {
 
     static {
         // load the core
-        boolean jar = HMBTCore.class.getResource("HMBTCore.class").toString().startsWith("jar");
+        Class testClass = HMKit.class;
+        boolean jar = testClass.getResource(testClass.getSimpleName() + ".class").toString().startsWith("jar");
+
         if (jar) {
             try {
                 NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
@@ -55,7 +57,7 @@ public class HMKit {
                 e.printStackTrace();
             }
         } else {
-            // This is only used by junit and it only works in linux.
+            // this loads the lib locally for unit tests
             Path resourceDirectory = Paths.get("");
             String abs = resourceDirectory.toAbsolutePath() + "/../lib/libhmbtcore.jnilib";
             System.load(abs);

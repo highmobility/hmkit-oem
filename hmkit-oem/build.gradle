@@ -11,8 +11,6 @@ buildscript {
 }
 
 apply plugin: "java"
-apply plugin: "com.jfrog.artifactory"
-apply plugin: 'maven'
 
 repositories {
     jcenter()
@@ -41,10 +39,10 @@ dependencies {
     } else {
         implementation deps.crypto
         implementation deps.corejni
+        implementation deps.utils
     }
 
     implementation 'org.slf4j:slf4j-api:1.7.25'
-
     testImplementation group: 'junit', name: 'junit', version: '4.8'
     testImplementation 'org.slf4j:slf4j-simple:1.7.25'
 }
@@ -53,99 +51,92 @@ jar {
     from '../lib/libhmbtcore.jnilib'
 }
 
-// deploy
+if (project.releaseType > 0) {
+    // deploy
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'maven'
 
-//apply plugin: 'maven'
-/*apply plugin: 'com.jfrog.bintray'
-apply plugin: 'com.jfrog.artifactory'
+    /*apply plugin: 'com.jfrog.bintray'*/
 
-version=artifact.version
-group=artifact.groupId*/
-
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'jar'
-            groupId artifact.groupId
-            artifactId artifact.id
-            version artifact.version
-            name artifact.id // pom.project.name must be same as bintray.pkg.name
-            url artifact.siteUrl
-            inceptionYear '2018'
-            licenses {
-                license { // HARDCODED
-                    name 'GPL-3.0'
-                    url 'https://www.gnu.org/licenses/gpl.txt'
-                    distribution 'repo'
+    install {
+        repositories.mavenInstaller {
+            pom.project {
+                packaging 'jar'
+                groupId artifact.groupId
+                artifactId artifact.id
+                version artifact.version
+                name artifact.id // pom.project.name must be same as bintray.pkg.name
+                url artifact.siteUrl
+                inceptionYear '2018'
+                licenses {
+                    license { // HARDCODED
+                        name 'GPL-3.0'
+                        url 'https://www.gnu.org/licenses/gpl.txt'
+                        distribution 'repo'
+                    }
+                }
+                scm {
+                    connection artifact.gitUrl
+                    developerConnection artifact.gitUrl
+                    url artifact.siteUrl
                 }
             }
-            scm {
-                connection artifact.gitUrl
-                developerConnection artifact.gitUrl
-                url artifact.siteUrl
+        }
+    }
+
+    /*
+    bintray {
+        user = System.properties['hmBintrayUser']
+        key = System.properties['hmBintrayApikey']
+
+        configurations = ['archives']
+        pkg {
+            repo = "maven"
+            name = artifact.id
+            websiteUrl = artifact.siteUrl
+            vcsUrl = artifact.gitUrl
+            licenses = artifact.licenses
+            publish = true
+            version {
+                name = artifact.version
             }
         }
+    }*/
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.java.srcDirs
+        archiveClassifier.set("sources")
     }
-}
-/*
-bintray {
-    user = System.properties['hmBintrayUser']
-    key = System.properties['hmBintrayApikey']
 
-    configurations = ['archives']
-    pkg {
-        repo = "maven"
-        name = artifact.id
-        websiteUrl = artifact.siteUrl
-        vcsUrl = artifact.gitUrl
-        licenses = artifact.licenses
-        publish = true
-        version {
-            name = artifact.version
-        }
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        archiveClassifier.set("javadoc")
+        from javadoc.destinationDir
+        // options.encoding = 'UTF-8'
     }
-}*/
 
-sourceSets.main {
-    java {
-        // add the classes from jni repo
-        srcDirs '../hm-java-core-jni/src/main/java/com/highmobility/btcore'
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
     }
-}
 
-task sourcesJar(type: Jar) {
-    from sourceSets.main.java.srcDirs
-    archiveClassifier.set("sources")
-}
+    // artifactory
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    archiveClassifier.set("javadoc")
-    from javadoc.destinationDir
-    // options.encoding = 'UTF-8'
-}
+    artifactory {
+        contextUrl = System.properties['hmArtifactoryUrl']
 
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
+        publish {
+            repository {
+                repoKey = artifact.repo
+                username = System.properties['hmArtifactoryPublishUser']
+                password = System.properties['hmArtifactoryPublishPassword']
+                maven = true
+            }
 
-// artifactory
-
-artifactory {
-    contextUrl = System.properties['hmArtifactoryUrl']
-
-    publish {
-        repository {
-            repoKey = artifact.repo
-            username = System.properties['hmArtifactoryPublishUser']
-            password = System.properties['hmArtifactoryPublishPassword']
-            maven = true
-        }
-
-        defaults {
-            publishConfigs('archives', 'published')
-            publishPom = true
-            publishIvy = false
+            defaults {
+                publishConfigs('archives', 'published')
+                publishPom = true
+                publishIvy = false
+            }
         }
     }
 }
