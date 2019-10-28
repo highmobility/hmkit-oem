@@ -1,0 +1,139 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.7"
+    }
+}
+
+apply plugin: "java"
+
+repositories {
+    jcenter()
+    maven {
+        url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
+        credentials {
+            username System.properties['devReadUser']
+            password System.properties['devReadPassword']
+        }
+    }
+}
+
+def artifact = new Properties()
+artifact.load(new FileInputStream("$projectDir/deploy.settings"))
+
+group = artifact.groupId
+version = artifact.version
+
+sourceCompatibility = 1.8
+
+dependencies {
+    if (project.releaseType == 0) {
+        implementation project(':hmkit-crypto')
+        implementation project(':hmkit-utils')
+        implementation project(':hmkit-core-jni')
+    } else {
+        implementation deps.crypto
+        implementation deps.corejni
+        implementation deps.utils
+    }
+
+    implementation 'org.slf4j:slf4j-api:1.7.25'
+    testImplementation group: 'junit', name: 'junit', version: '4.8'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.25'
+}
+
+jar {
+    from '../lib/libhmbtcore.jnilib'
+}
+
+if (project.releaseType > 0) {
+    // deploy
+    apply plugin: "com.jfrog.artifactory"
+    apply plugin: 'maven'
+
+    /*apply plugin: 'com.jfrog.bintray'*/
+
+    install {
+        repositories.mavenInstaller {
+            pom.project {
+                packaging 'jar'
+                groupId artifact.groupId
+                artifactId artifact.id
+                version artifact.version
+                name artifact.id // pom.project.name must be same as bintray.pkg.name
+                url artifact.siteUrl
+                inceptionYear '2018'
+                licenses {
+                    license { // HARDCODED
+                        name 'GPL-3.0'
+                        url 'https://www.gnu.org/licenses/gpl.txt'
+                        distribution 'repo'
+                    }
+                }
+                scm {
+                    connection artifact.gitUrl
+                    developerConnection artifact.gitUrl
+                    url artifact.siteUrl
+                }
+            }
+        }
+    }
+
+    /*
+    bintray {
+        user = System.properties['hmBintrayUser']
+        key = System.properties['hmBintrayApikey']
+
+        configurations = ['archives']
+        pkg {
+            repo = "maven"
+            name = artifact.id
+            websiteUrl = artifact.siteUrl
+            vcsUrl = artifact.gitUrl
+            licenses = artifact.licenses
+            publish = true
+            version {
+                name = artifact.version
+            }
+        }
+    }*/
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.java.srcDirs
+        archiveClassifier.set("sources")
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        archiveClassifier.set("javadoc")
+        from javadoc.destinationDir
+        // options.encoding = 'UTF-8'
+    }
+
+    artifacts {
+        archives javadocJar
+        archives sourcesJar
+    }
+
+    // artifactory
+
+    artifactory {
+        contextUrl = System.properties['hmArtifactoryUrl']
+
+        publish {
+            repository {
+                repoKey = artifact.repo
+                username = System.properties['hmArtifactoryPublishUser']
+                password = System.properties['hmArtifactoryPublishPassword']
+                maven = true
+            }
+
+            defaults {
+                publishConfigs('archives', 'published')
+                publishPom = true
+                publishIvy = false
+            }
+        }
+    }
+}

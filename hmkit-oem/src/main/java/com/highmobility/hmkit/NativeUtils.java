@@ -21,9 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.highmobility.btcore;
+package com.highmobility.hmkit;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.FileSystemNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.ProviderNotFoundException;
@@ -33,8 +38,8 @@ import java.nio.file.ProviderNotFoundException;
  * JAR archive. These libraries usualy contain implementation of some methods in
  * native code (using JNI - Java Native Interface).
  * 
- * @see http://adamheinrich.com/blog/2012/how-to-load-native-jni-library-from-jar
- * @see https://github.com/adamheinrich/native-utils
+ * @see <a href="http://adamheinrich.com/blog/2012/how-to-load-native-jni-library-from-jar">adamheinrich.com</a>
+ * @see <a href="https://github.com/adamheinrich/native-utils>github.com</a>
  *
  */
 class NativeUtils {

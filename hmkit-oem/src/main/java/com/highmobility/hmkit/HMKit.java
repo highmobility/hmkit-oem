@@ -23,13 +23,69 @@ package com.highmobility.hmkit;
 import com.highmobility.btcore.HMBTCore;
 import com.highmobility.btcore.HMBTCoreInterface;
 import com.highmobility.crypto.AccessCertificate;
+import com.highmobility.crypto.Crypto;
 import com.highmobility.crypto.value.DeviceSerial;
 import com.highmobility.crypto.value.PrivateKey;
 import com.highmobility.value.Bytes;
 
-public class Telematics {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class HMKit {
 
     private static final String invalidArgumentExceptionMessage = "Invalid argument";
+
+    private static volatile HMKit instance;
+
+    public static Logger logger = LoggerFactory.getLogger(HMKit.class);
+
+    public Crypto crypto;
+
+    static {
+        // load the core
+        Class testClass = HMKit.class;
+        boolean jar = testClass.getResource(testClass.getSimpleName() + ".class").toString().startsWith("jar");
+
+        if (jar) {
+            try {
+                NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // this loads the lib locally for unit tests
+            Path resourceDirectory = Paths.get("");
+            String abs = resourceDirectory.toAbsolutePath() + "/../lib/libhmbtcore.jnilib";
+            System.load(abs);
+        }
+    }
+
+    /**
+     * @return The instance of the HMKit.
+     */
+    public static HMKit getInstance() {
+        if (instance == null) {
+            synchronized (HMKit.class) {
+                // If instance is null, make sure its created thread  safely.
+                if (instance == null) instance = new HMKit();
+            }
+        }
+
+        return instance;
+    }
+
+    private HMKit() {
+        // protect against reflection where private is not respected.
+        if (instance != null) {
+            throw new RuntimeException("Use getInstance() to get the HMKit singleton");
+        }
+
+        crypto = new Crypto(new HMBTCore());
+    }
 
     /**
      * Decrypt an incoming command.
@@ -40,8 +96,7 @@ public class Telematics {
      * @return the decrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes command)
+    public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command)
             throws CryptoException {
 
         validatePrivateKey(privateKey);
@@ -52,7 +107,7 @@ public class Telematics {
                     invalidArgumentExceptionMessage);
         }
 
-        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(privateKey.getByteArray(),
+        HMBTCoreInterfaceImpl container = new HMBTCoreInterfaceImpl(privateKey.getByteArray(),
                 certificate);
         HMBTCore coreJni = initCore(container);
 
@@ -75,10 +130,9 @@ public class Telematics {
      * @return the encrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes nonce,
-                                       DeviceSerial serial, Bytes command) throws CryptoException {
-
+    public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                Bytes nonce,
+                                DeviceSerial serial, Bytes command) throws CryptoException {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
@@ -97,8 +151,9 @@ public class Telematics {
                     invalidArgumentExceptionMessage);
         }
 
-        HMBTCoreInterface container = new HMBTCoreInterfaceImpl(serial.getByteArray(), privateKey
-                .getByteArray(), certificate);
+        HMBTCoreInterfaceImpl container = new HMBTCoreInterfaceImpl(serial.getByteArray(),
+                privateKey
+                        .getByteArray(), certificate);
         HMBTCore coreJni = initCore(container);
 
         coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
@@ -108,27 +163,27 @@ public class Telematics {
         return container.getResponse();
     }
 
-    private static HMBTCore initCore(HMBTCoreInterface container) {
+    private HMBTCore initCore(HMBTCoreInterface container) {
         HMBTCore jniToCore = new HMBTCore();
         jniToCore.HMBTCoreInit(container);
         return jniToCore;
     }
 
-    private static void validateCertificate(AccessCertificate certificate) throws CryptoException {
+    private void validateCertificate(AccessCertificate certificate) throws CryptoException {
         if (certificate == null) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
                     invalidArgumentExceptionMessage);
         }
     }
 
-    private static void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
+    private void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
         if (privateKey == null) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
                     invalidArgumentExceptionMessage);
         }
     }
 
-    private static void validateResult(HMBTCoreInterface container, String message) throws
+    private void validateResult(HMBTCoreInterfaceImpl container, String message) throws
             CryptoException {
         if (container.getResponse() == null) {
             throw new CryptoException(CryptoException.Type.INTERNAL_ERROR, message);

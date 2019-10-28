@@ -1,4 +1,4 @@
-
+//TODO: delete?
 #Include openssl crypto
 SRC += ../../../Crypto-c/Crypto/Crypto.c
 

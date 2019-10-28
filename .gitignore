@@ -1,8 +1,6 @@
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 .gradle
-/build/
-
-*.o
+build/
 
 ## gradle properties
 local.properties
@@ -41,7 +39,7 @@ hs_err_pid*
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
+out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -80,3 +78,11 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#NDK
+obj
+.externalNativeBuild
+*.so
+*.o
+*.o.d
+*.jnilib
