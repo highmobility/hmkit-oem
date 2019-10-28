@@ -43,12 +43,20 @@ public class HMKit {
 
     public static Logger logger = LoggerFactory.getLogger(HMKit.class);
 
-    public Crypto crypto;
+    private Crypto crypto;
+
+    /**
+     * @return The crypto.
+     */
+    public Crypto getCrypto() {
+        return crypto;
+    }
 
     static {
         // load the core
         Class testClass = HMKit.class;
-        boolean jar = testClass.getResource(testClass.getSimpleName() + ".class").toString().startsWith("jar");
+        boolean jar =
+                testClass.getResource(testClass.getSimpleName() + ".class").toString().startsWith("jar");
 
         if (jar) {
             try {

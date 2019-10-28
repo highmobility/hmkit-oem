@@ -240,6 +240,11 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
 
     }
 
+    @Override
+    public void HMApiCallbackErrorCommandIncoming(HMDevice device, int error, int errorType) {
+
+    }
+
     void copyBytes(byte[] from, byte[] to) {
         for (int i = 0; i < from.length; i++) {
             to[i] = from[i];

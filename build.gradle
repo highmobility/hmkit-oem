@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.7"
+    }
+}
+
 allprojects {
     repositories {
         jcenter()
@@ -30,8 +39,8 @@ ext {
 ext.ver = [
         corejni   : "1.0.0",
         crypto    : "1.4.4-dev",
-        utils     : "1.4.3",
-        hmkit     : "1.4.0-dev"
+        utils     : "1.4.4-dev",
+        hmkit     : "2.0.0-dev"
 ]
 
 ext.deps = [
