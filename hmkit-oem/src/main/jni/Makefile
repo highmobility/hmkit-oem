@@ -1,12 +1,12 @@
 # This is for building in Linux
 
 # Include openssl crypto
-include ../../../../crypto-c/Crypto/Makefile
-HM_OPENSSL_C  := $(shell cd ../../../../crypto-c/Crypto/; pwd)
+include ../../../../hm-java-core-jni/crypto-c/Crypto/Makefile
+HM_OPENSSL_C  := $(shell cd ../../../../hm-java-core-jni/crypto-c/Crypto/; pwd)
 dir += $(HM_OPENSSL_C)
 #Include HM bt core
-include ../../../../high-mobility-bt-core/Makefile
-HM_BT_CORE := $(shell cd ../../../../high-mobility-bt-core/; pwd)
+include ../../../../hm-java-core-jni/high-mobility-bt-core/Makefile
+HM_BT_CORE := $(shell cd ../../../../hm-java-core-jni/high-mobility-bt-core/; pwd)
 dir += $(HM_BT_CORE)
 
 JAVA_HOME:=/usr/lib/jvm/default-java
@@ -23,7 +23,7 @@ _create_build_dir := $(shell mkdir -p ../../../../lib)
 
 APP_SOURCES := ./
 
-SRC += $(LOCAL_PATH)/hmbtcore.c
+SRC += $(LOCAL_PATH)/hmbtcore.cpp
 SRC += $(LOCAL_PATH)/hm_api_callback.c
 SRC += $(LOCAL_PATH)/hm_bt_crypto_hal.c
 SRC += $(LOCAL_PATH)/hm_bt_debug_hal.c
