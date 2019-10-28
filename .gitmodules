@@ -1,12 +1,3 @@
-[submodule "high-mobility-bt-core"]
-	path = high-mobility-bt-core
-	url = https://bitbucket.org/highmobility/high-mobility-bt-core.git
-[submodule "crypto-c"]
-	path = crypto-c
-	url = https://bitbucket.org/highmobility/crypto-c.git
-[submodule "openssl"]
-	path = openssl
-	url = https://github.com/openssl/openssl.git
 [submodule "hm-java-core-jni"]
 	path = hm-java-core-jni
 	url = git@bitbucket.org:highmobility/hm-java-core-jni.git
@@ -16,3 +7,6 @@
 [submodule "hm-java-utils"]
 	path = hm-java-utils
 	url = git@github.com:highmobility/hm-java-utils.git
+[submodule "hm-java-auto-api"]
+	path = hm-java-auto-api
+	url = git@github.com:highmobility/hm-java-auto-api.git
