@@ -1,11 +1,9 @@
 # This is for building in Linux
 
 # Include openssl crypto
-include ../../../../hm-java-core-jni/crypto-c/Crypto/Makefile
 HM_OPENSSL_C  := $(shell cd ../../../../hm-java-core-jni/crypto-c/Crypto/; pwd)
 dir += $(HM_OPENSSL_C)
 #Include HM bt core
-include ../../../../hm-java-core-jni/high-mobility-bt-core/Makefile
 HM_BT_CORE := $(shell cd ../../../../hm-java-core-jni/high-mobility-bt-core/; pwd)
 dir += $(HM_BT_CORE)
 
