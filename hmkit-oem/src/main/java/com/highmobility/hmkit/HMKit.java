@@ -78,7 +78,6 @@ public class HMKit {
     public static HMKit getInstance() {
         if (instance == null) {
             synchronized (HMKit.class) {
-                // If instance is null, make sure its created thread  safely.
                 if (instance == null) instance = new HMKit();
             }
         }
@@ -104,7 +103,8 @@ public class HMKit {
      * @return the decrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command)
+    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes command)
             throws CryptoException {
 
         validatePrivateKey(privateKey);
@@ -138,9 +138,9 @@ public class HMKit {
      * @return the encrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                Bytes nonce,
-                                DeviceSerial serial, Bytes command) throws CryptoException {
+    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes nonce,
+                                       DeviceSerial serial, Bytes command) throws CryptoException {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
@@ -160,8 +160,7 @@ public class HMKit {
         }
 
         HMBTCoreInterfaceImpl container = new HMBTCoreInterfaceImpl(serial.getByteArray(),
-                privateKey
-                        .getByteArray(), certificate);
+                privateKey.getByteArray(), certificate);
         HMBTCore coreJni = initCore(container);
 
         coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
@@ -171,27 +170,27 @@ public class HMKit {
         return container.getResponse();
     }
 
-    private HMBTCore initCore(HMBTCoreInterface container) {
+    private static HMBTCore initCore(HMBTCoreInterface container) {
         HMBTCore jniToCore = new HMBTCore();
         jniToCore.HMBTCoreInit(container);
         return jniToCore;
     }
 
-    private void validateCertificate(AccessCertificate certificate) throws CryptoException {
+    private static void validateCertificate(AccessCertificate certificate) throws CryptoException {
         if (certificate == null) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
                     invalidArgumentExceptionMessage);
         }
     }
 
-    private void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
+    private static void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
         if (privateKey == null) {
             throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
                     invalidArgumentExceptionMessage);
         }
     }
 
-    private void validateResult(HMBTCoreInterfaceImpl container, String message) throws
+    private static void validateResult(HMBTCoreInterfaceImpl container, String message) throws
             CryptoException {
         if (container.getResponse() == null) {
             throw new CryptoException(CryptoException.Type.INTERNAL_ERROR, message);
