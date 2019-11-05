@@ -53,7 +53,7 @@ public class HMKit {
     }
 
     static {
-        // load the core
+        // load the core in static since it is used in static methods.
         Class testClass = HMKit.class;
         boolean jar =
                 testClass.getResource(testClass.getSimpleName() + ".class").toString().startsWith("jar");
@@ -104,8 +104,7 @@ public class HMKit {
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
     public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes command)
-            throws CryptoException {
+                                       Bytes command) throws CryptoException {
 
         validatePrivateKey(privateKey);
         validateCertificate(certificate);

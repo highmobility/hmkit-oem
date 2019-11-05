@@ -23,10 +23,32 @@
  */
 package com.highmobility.hmkit;
 
+import com.highmobility.crypto.AccessCertificate;
+import com.highmobility.crypto.value.DeviceSerial;
+import com.highmobility.crypto.value.PrivateKey;
+import com.highmobility.value.Bytes;
+
 /**
  * @deprecated use {@link HMKit} instead.
  */
 @Deprecated
 public class Telematics {
+    /**
+     * @deprecated use {@link HMKit} instead.
+     */
+    @Deprecated
+    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes command) throws CryptoException {
+        return HMKit.decryptCommand(privateKey, certificate, command);
+    }
 
+    /**
+     * @deprecated use {@link HMKit} instead.
+     */
+    @Deprecated
+    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes nonce,
+                                       DeviceSerial serial, Bytes command) throws CryptoException {
+        return HMKit.encryptCommand(privateKey, certificate, nonce, serial, command);
+    }
 }
