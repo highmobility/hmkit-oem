@@ -79,16 +79,6 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     @Override
-    public void HMApiCallbackTelematicsCommandIncoming(HMDevice device, int id, int length,
-                                                       byte[] data) {
-        if (id == 0x02) {
-            // failed
-        } else {
-            response = trimmedBytes(data, length);
-        }
-    }
-
-    @Override
     public int HMBTHalTelematicsSendData(byte[] issuer, byte[] serial, int length, byte[] data) {
         response = trimmedBytes(data, length);
         return 0;
@@ -213,12 +203,18 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
     }
 
     @Override
-    public void HMApiCallbackCustomCommandIncoming(HMDevice device, byte[] data, int length) {
+    public void HMApiCallbackCustomCommandIncoming(HMDevice device, int contentType, byte[] data,
+                                                   int length) {
 
     }
 
     @Override
-    public void HMApiCallbackCustomCommandResponse(HMDevice device, byte[] data, int length) {
+    public void HMApiCallbackCustomCommandResponse(HMDevice device, int contentType, byte[] data,
+                                                   int length) {
+
+    }
+
+    @Override public void HMApiCallbackCustomCommandResponseError(HMDevice device, int errorType) {
 
     }
 
@@ -231,12 +227,25 @@ public class HMBTCoreInterfaceImpl implements HMBTCoreInterface {
         return 0;
     }
 
+    @Override
+    public void HMApiCallbackTelematicsCommandIncoming(HMDevice device, int id, int contentType, int length, byte[] data) {
+        if (id == 0x02) {
+            // failed
+        } else {
+            response = trimmedBytes(data, length);
+        }
+    }
+
     @Override public void HMCryptoHalGenerateNonce(byte[] nonce) {
 
     }
 
     @Override
     public void HMApiCallbackRevokeResponse(HMDevice device, byte[] data, int length, int status) {
+
+    }
+
+    @Override public void HMApiCallbackRevokeIncoming(HMDevice device) {
 
     }
 

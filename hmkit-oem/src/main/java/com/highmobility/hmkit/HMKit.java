@@ -140,6 +140,24 @@ public class HMKit {
     public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
                                        Bytes nonce,
                                        DeviceSerial serial, Bytes command) throws CryptoException {
+        return encryptCommand(ContentType.AUTO_API, privateKey, certificate, nonce, serial, command);
+    }
+
+    /**
+     * Encrypt a command so that it can be sent to the HM server. The encrypted command will be
+     * returned in CoreCallback's didEncryptCommand.
+     *
+     * @param contentType the content type. See {@link ContentType} for possible types.
+     * @param privateKey  the vehicle's private key
+     * @param certificate the vehicle's Access Certificate
+     * @param nonce       the nonce
+     * @param serial      the vehicle's serial number
+     * @param command     the command that will be encrypted
+     * @return the encrypted command
+     * @throws CryptoException When arguments are invalid or the decryption failed
+     */
+    public static Bytes encryptCommand(ContentType contentType, PrivateKey privateKey, AccessCertificate certificate,
+                                         Bytes nonce, DeviceSerial serial, Bytes command) throws CryptoException {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
@@ -163,7 +181,7 @@ public class HMKit {
         HMBTCore coreJni = initCore(container);
 
         coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
-                .getByteArray(), command.getLength(), command.getByteArray());
+                .getByteArray(), contentType.asInt(), command.getLength(), command.getByteArray());
 
         validateResult(container, "Encryption failed. Check the parameters");
         return container.getResponse();
