@@ -21,7 +21,7 @@ _create_build_dir := $(shell mkdir -p ../../../../lib)
 
 APP_SOURCES := ./
 
-SRC += $(LOCAL_PATH)/hmbtcore.cpp
+SRC += $(LOCAL_PATH)/hmbtcore.c
 SRC += $(LOCAL_PATH)/hm_api_callback.c
 SRC += $(LOCAL_PATH)/hm_bt_crypto_hal.c
 SRC += $(LOCAL_PATH)/hm_bt_debug_hal.c
