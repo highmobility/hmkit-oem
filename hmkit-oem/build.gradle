@@ -7,18 +7,7 @@ buildscript {
     }
 }
 
-apply plugin: "java"
-
-repositories {
-    jcenter()
-    maven {
-        url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
-        credentials {
-            username System.properties['devReadUser']
-            password System.properties['devReadPassword']
-        }
-    }
-}
+apply plugin: "java-library"
 
 def artifact = new Properties()
 artifact.load(new FileInputStream("$projectDir/deploy.settings"))
@@ -44,11 +33,12 @@ dependencies {
     testImplementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
-jar {
-    from '../lib/libhmbtcore.jnilib'
-}
 
 if (project.releaseType > 0) {
+    jar {
+        from '../lib/libhmbtcore.jnilib'
+    }
+
     // deploy
     apply plugin: "com.jfrog.artifactory"
     apply plugin: 'maven'

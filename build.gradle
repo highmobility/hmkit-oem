@@ -13,8 +13,8 @@ allprojects {
         maven {
             url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
             credentials {
-                username System.properties['devReadUser']
-                password System.properties['devReadPassword']
+                username devReadUser
+                password devReadPassword
             }
         }
     }
@@ -38,14 +38,12 @@ ext {
 // these are not release numbers. release numbers are in deploy.settings files.
 ext.ver = [
         corejni   : "1.0.0",
-        crypto    : "1.4.4-dev",
-        utils     : "1.4.4-dev",
-        hmkit     : "2.0.0-dev"
+        crypto    : "1.4.5",
+        utils     : "1.4.4",
 ]
 
 ext.deps = [
         "corejni" : "com.highmobility:hmkit-core-jni:${ver.corejni}",
-        "hmkit"   : "com.highmobility:hmkit-oem:${ver.hmkit}",
         "crypto"  : "com.highmobility:hmkit-crypto:${ver.crypto}",
         "utils"   : "com.highmobility:hmkit-utils:${ver.utils}"
 ]
