@@ -33,12 +33,11 @@ dependencies {
     testImplementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
+jar {
+    from '../lib/libhmbtcore.jnilib'
+}
 
 if (project.releaseType > 0) {
-    jar {
-        from '../lib/libhmbtcore.jnilib'
-    }
-
     // deploy
     apply plugin: "com.jfrog.artifactory"
     apply plugin: 'maven'
@@ -73,8 +72,8 @@ if (project.releaseType > 0) {
 
     /*
     bintray {
-        user = System.properties['hmBintrayUser']
-        key = System.properties['hmBintrayApikey']
+        user = hmBintrayUser
+        key = hmBintrayApikey
 
         configurations = ['archives']
         pkg {
@@ -109,13 +108,13 @@ if (project.releaseType > 0) {
     // artifactory
 
     artifactory {
-        contextUrl = System.properties['hmArtifactoryUrl']
+        contextUrl = hmArtifactoryUrl
 
         publish {
             repository {
                 repoKey = artifact.repo
-                username = System.properties['hmArtifactoryPublishUser']
-                password = System.properties['hmArtifactoryPublishPassword']
+                username = hmArtifactoryPublishUser
+                password = hmArtifactoryPublishPassword
                 maven = true
             }
 
