@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-  implementation('com.highmobility:hmkit-oem:1.2.0')
+  implementation('com.highmobility:hmkit-oem:2.0.0')
 }
 ```
 
