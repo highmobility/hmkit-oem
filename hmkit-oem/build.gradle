@@ -34,9 +34,9 @@ dependencies {
         implementation project(':hmkit-utils')
         implementation project(':hmkit-core-jni')
     } else {
-        implementation deps.crypto
-        implementation deps.corejni
-        implementation deps.utils
+        api deps.crypto
+        api deps.corejni
+        api deps.utils
     }
 
     implementation 'org.slf4j:slf4j-api:1.7.25'
