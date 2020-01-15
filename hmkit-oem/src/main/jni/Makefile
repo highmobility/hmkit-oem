@@ -28,13 +28,13 @@ SRC += $(LOCAL_PATH)/hm_bt_debug_hal.c
 SRC += $(LOCAL_PATH)/hm_connectivity_hal.c
 SRC += $(LOCAL_PATH)/hm_bt_persistence_hal.c
 
-LOCAL_SRC_FILES += ../../../../crypto-c/Crypto/Crypto.c
+SRC += ../../../../crypto-c/Crypto/Crypto.c
 
-LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_bt_core.c
-LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_bt_log.c
-LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_cert.c
-LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_conf_access.c
-LOCAL_SRC_FILES += $(HM_BT_CORE)/hm_api.c
+SRC += $(HM_BT_CORE)/hm_bt_core.c
+SRC += $(HM_BT_CORE)/hm_bt_log.c
+SRC += $(HM_BT_CORE)/hm_cert.c
+SRC += $(HM_BT_CORE)/hm_conf_access.c
+SRC += $(HM_BT_CORE)/hm_api.c
 
 CFLAGS += -Wall -std=c99 -fPIC
 
