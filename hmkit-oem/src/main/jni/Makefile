@@ -28,7 +28,7 @@ SRC += $(LOCAL_PATH)/hm_bt_debug_hal.c
 SRC += $(LOCAL_PATH)/hm_connectivity_hal.c
 SRC += $(LOCAL_PATH)/hm_bt_persistence_hal.c
 
-SRC += ../../../../crypto-c/Crypto/Crypto.c
+SRC += ../../../../hm-java-core-jni/crypto-c/Crypto/Crypto.c
 
 SRC += $(HM_BT_CORE)/hm_bt_core.c
 SRC += $(HM_BT_CORE)/hm_bt_log.c
@@ -49,6 +49,7 @@ CFLAGS += -I$(APP_SOURCES)\
 LFLAGS +=
 
 CC = gcc
+TARGET_DIR = ../../../../lib
 TARGET = libhmbtcore.jnilib
 
 all: $(TARGET)
@@ -59,14 +60,14 @@ $(SRC):
 
 # Linking all object files
 $(TARGET): $(SRC:.c=.o)
-	$(CC) $(CFLAGS) -o ../../../../lib/$(TARGET) -shared $^\
+	$(CC) $(CFLAGS) -o $(TARGET_DIR)/$(TARGET) -shared $^\
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86_64\
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
 	 -L/usr/lib -lssl -lcrypto
 
-SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH)
+SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH) $(TARGET_DIR) $(HM_BT_CORE)
 DIRS := . $(shell find $(SUBDIR_ROOTS) -type d)
-GARBAGE_PATTERNS := *.o *~ core .depend .*.cmd *.ko *.mod.c
+GARBAGE_PATTERNS := *.o *~ core .depend .*.cmd *.ko *.mod.c *.jnilib
 GARBAGE := $(foreach DIR,$(DIRS),$(addprefix $(DIR)/,$(GARBAGE_PATTERNS)))
 
 clean:
