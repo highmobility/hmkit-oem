@@ -33,16 +33,15 @@ dependencies {
     testImplementation 'org.slf4j:slf4j-simple:1.7.25'
 }
 
-jar {
-    from '../lib/libhmbtcore.jnilib'
-}
-
 if (project.releaseType > 0) {
     // deploy
     apply plugin: "com.jfrog.artifactory"
     apply plugin: 'maven'
+    apply plugin: 'com.jfrog.bintray'
 
-    /*apply plugin: 'com.jfrog.bintray'*/
+    jar {
+        from '../lib/libhmbtcore.jnilib'
+    }
 
     install {
         repositories.mavenInstaller {
@@ -70,7 +69,6 @@ if (project.releaseType > 0) {
         }
     }
 
-    /*
     bintray {
         user = hmBintrayUser
         key = hmBintrayApikey
@@ -87,7 +85,7 @@ if (project.releaseType > 0) {
                 name = artifact.version
             }
         }
-    }*/
+    }
 
     task sourcesJar(type: Jar) {
         from sourceSets.main.java.srcDirs
