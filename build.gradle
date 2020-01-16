@@ -3,7 +3,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.7"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.13.0"
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
 }
 
@@ -19,7 +20,6 @@ allprojects {
         }
     }
 }
-
 
 ext {
     // 0 no release, local dependencies
