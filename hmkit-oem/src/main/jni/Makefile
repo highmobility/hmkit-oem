@@ -1,10 +1,10 @@
 # This is for building in Linux
 
 # Include openssl crypto
-HM_OPENSSL_C  := $(shell cd ../../../../hm-java-core-jni/crypto-c/Crypto/; pwd)
+HM_OPENSSL_C  := $(shell cd ../../../../hm-java-core-jni/hmkit-crypto-c/; pwd)
 dir += $(HM_OPENSSL_C)
 #Include HM bt core
-HM_BT_CORE := $(shell cd ../../../../hm-java-core-jni/high-mobility-bt-core/; pwd)
+HM_BT_CORE := $(shell cd ../../../../hm-java-core-jni/hmkit-core/; pwd)
 dir += $(HM_BT_CORE)
 
 JAVA_HOME:=/usr/lib/jvm/default-java
@@ -22,19 +22,19 @@ _create_build_dir := $(shell mkdir -p ../../../../lib)
 APP_SOURCES := ./
 
 SRC += $(LOCAL_PATH)/hmbtcore.c
-SRC += $(LOCAL_PATH)/hm_api_callback.c
-SRC += $(LOCAL_PATH)/hm_bt_crypto_hal.c
-SRC += $(LOCAL_PATH)/hm_bt_debug_hal.c
-SRC += $(LOCAL_PATH)/hm_connectivity_hal.c
-SRC += $(LOCAL_PATH)/hm_bt_persistence_hal.c
+SRC += $(LOCAL_PATH)/hmkit_core_api_callback.c
+SRC += $(LOCAL_PATH)/hmkit_core_crypto_hal.c
+SRC += $(LOCAL_PATH)/hmkit_core_debug_hal.c
+SRC += $(LOCAL_PATH)/hmkit_core_connectivity_hal.c
+SRC += $(LOCAL_PATH)/hmkit_core_persistence_hal.c
 
-SRC += ../../../../hm-java-core-jni/crypto-c/Crypto/Crypto.c
+SRC += ../../../../hm-java-core-jni/hmkit-crypto-c/Crypto.c
 
-SRC += $(HM_BT_CORE)/hm_bt_core.c
-SRC += $(HM_BT_CORE)/hm_bt_log.c
-SRC += $(HM_BT_CORE)/hm_cert.c
-SRC += $(HM_BT_CORE)/hm_conf_access.c
-SRC += $(HM_BT_CORE)/hm_api.c
+SRC += $(HM_BT_CORE)/hmkit_core.c
+SRC += $(HM_BT_CORE)/hmkit_core_log.c
+SRC += $(HM_BT_CORE)/hmkit_core_cert.c
+SRC += $(HM_BT_CORE)/hmkit_core_conf_access.c
+SRC += $(HM_BT_CORE)/hmkit_core_api.c
 
 CFLAGS += -Wall -std=c99 -fPIC
 
