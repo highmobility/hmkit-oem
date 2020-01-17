@@ -77,8 +77,6 @@ cd hmkit-oem/src/main/jni && make && cd -
 
 #### Release
 
-// TODO: make a test release
-
 This project bundles all of the OEM SDK packages: hmkit-oem, hmkit-crypto and hmkit-utils.
 
 For a release, update the "version = 1.5.0" in the deploy.settings files of the updated packages.
