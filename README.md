@@ -19,9 +19,9 @@ HMKit OEM is used to encrypt/decrypt commands that are sent to/from OEM cloud.
 
 **hmkit-core-jni**: Contains JNI classes to HMKit Core.
 
-**hm-java-crypto**: Contains crypto classes and functions.
+**hmkit-crypto**: Contains crypto classes and functions.
 
-**hm-java-utils**: Contains general helper methods and classes.
+**hmkit-utils**: Contains general helper methods and classes.
 
 ### Requirements
 

@@ -2,8 +2,4 @@ include ':hmkit-oem'
 include ':hmkit-core-jni'
 include ':hmkit-utils'
 include ':hmkit-crypto'
-include ':hmkit-auto-api'
-
-project(':hmkit-crypto').projectDir = new File('hm-java-crypto/')
-project(':hmkit-utils').projectDir = new File('hm-java-utils/')
-project(':hmkit-auto-api').projectDir = new File('hm-java-auto-api/')
+include ':auto-api-java'
