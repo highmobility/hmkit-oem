@@ -1,14 +1,14 @@
 # This is for building in Linux
 
 # Include openssl crypto
-HM_OPENSSL_C  := $(shell cd ../../../../hm-java-core-jni/hmkit-crypto-c/; pwd)
+HM_OPENSSL_C  := $(shell cd ../../../../hmkit-core-jni/hmkit-crypto-c/; pwd)
 dir += $(HM_OPENSSL_C)
 #Include HM bt core
-HM_BT_CORE := $(shell cd ../../../../hm-java-core-jni/hmkit-core/; pwd)
+HM_BT_CORE := $(shell cd ../../../../hmkit-core-jni/hmkit-core/; pwd)
 dir += $(HM_BT_CORE)
 
 JAVA_HOME:=/usr/lib/jvm/default-java
-LOCAL_PATH := $(shell cd ../../../../hm-java-core-jni/src/main/jni/; pwd)
+LOCAL_PATH := $(shell cd ../../../../hmkit-core-jni/src/main/jni/; pwd)
 
 # for 32bit prepend -m32
 CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin -D _GNU_SOURCE
@@ -28,7 +28,7 @@ SRC += $(LOCAL_PATH)/hmkit_core_debug_hal.c
 SRC += $(LOCAL_PATH)/hmkit_core_connectivity_hal.c
 SRC += $(LOCAL_PATH)/hmkit_core_persistence_hal.c
 
-SRC += ../../../../hm-java-core-jni/hmkit-crypto-c/Crypto.c
+SRC += ../../../../hmkit-core-jni/hmkit-crypto-c/Crypto.c
 
 SRC += $(HM_BT_CORE)/hmkit_core.c
 SRC += $(HM_BT_CORE)/hmkit_core_log.c
