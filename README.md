@@ -1,90 +1,65 @@
 # HMKit OEM
 
-This repository is used to Encrypt/Decrypt commands that are sent from/to OEM cloud.
+HMKit OEM is used to encrypt/decrypt commands that are sent to/from OEM cloud.
 
-### Dependencies
+# Table of contents
 
-hmkit-utils, hmkit-crypto, hmkit-core-jni
+* [Architecture](#architecture)
+* [Requirements](#requirements)
+* [Getting Started](#getting-started)
+* [Contributing](#contributing)
+* [Release](#release)
+* [Licence](#Licence)
 
-### Install
+### Architecture
 
-Releases are pushed to jcenter. To include hmkit-oem in your project, add to build.gradle:
+**General**: HMKit OEM is a Java library that handles encrypting commands between OEM and High-Mobility. Security is implemented via JNI to the HMKit Core C module.
 
-```
-repositories {
-  jcenter()
-}
+**hmkit-oem**: Contains HMKit OEM Java classes.
 
-dependencies {
-  implementation('com.highmobility:hmkit-oem:2.0.0')
-}
-```
+**hmkit-core-jni**: Contains JNI classes to HMKit Core.
 
-Find the latest version name in https://bintray.com/high-mobility/maven/hmkit-oem
+**hm-java-crypto**: Contains crypto classes and functions.
 
-### Environment
+**hm-java-utils**: Contains general helper methods and classes.
 
-HMKit OEM requires our core binary and currently includes one that is built for Linux in the /lib folder.
-This means the project can only be built in Linux. Contact High-Mobility if you require binaries for other
-systems.
+### Requirements
 
-### How to encrypt/decrypt commands?
+* Linux environment. Contact High-Mobility if you require binaries for other systems.
 
-The main access point for this library is the HMKit class. Here you find methods:
+### Getting Started
 
-```java
-public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes command) throws CryptoException
-```
+Get started with HMKit Android 📘[browse the documentation](https://high-mobility.com/learn/tutorials/for-carmakers/cloud/tutorial/).
 
-```java
-public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate, Bytes nonce,
-                                DeviceSerial serial, Bytes command) throws CryptoException
-```
+### Contributing
 
-Use these to encrypt/decrypt a command that will be sent to High-Mobility.
+Before starting please read our contribution rules 📘[Contributing](CONTRIBUTE.md)
 
-Use the Crypto object in HMKit to create key pairs and Access certificates for your vehicles. 
-These need to be forwarded to the command's encryption/decryption.
-
-### Tutorial
-
-There is a tutorial about the general flow OEM-s can follow to implement our SDK:
-
-https://high-mobility.com/learn/tutorials/for-carmakers/cloud/tutorial/
-
-
-### 
 ### Setup
 
-* git submodule update --init --recursive
-* import the Gradle project.
-* Build the core: `cd hmkit-oem/src/main/jni && make && cd -`
-* Run the Tests.java tests.
-* If there are errors: Try `Gradle clean`, `File > Invalidate caches and restart`.
-
-
-### Building the core
-Core is not included in the repository and needs to be built on first clone
-```
-cd hmkit-oem/src/main/jni && make && cd -
-```
+* `git submodule update --init --recursive`
+* Build the HMKit Core: `cd hmkit-oem/src/main/jni && make && cd -`
+* import the Gradle project
+* Run the Tests.java tests
+* If there are errors, try `Gradle clean`, `File > Invalidate caches and restart`
 
 ### Release
 
-#### Pre checks
+All of the HMKit Android packages can be released from this project. This includes hmkit-android, hmkit-core-jni, hmkit-crypto, hmkit-utils.
 
-* run the unit-tests
+**Pre checks**
 
-#### Release
+* Run the unit tests in Tests.java.
 
-This project bundles all of the OEM SDK packages: hmkit-oem, hmkit-crypto and hmkit-utils.
+**Release**
 
-For a release, update the "version = 1.5.0" in the deploy.settings files of the updated packages.
-Make sure you have artifactory credentials in ~/.gradle/gradle.properties.
+* Update the "version = 1.5.0" in all of the deploy.settings files(if needed).
+* Set the release environment in root build.gradle (ext property release = 0/1/2).
+* Call `./gradlew artifactoryPublish` to release all of the packages.
+* Call `./gradlew :hmkit-utils:artifactoryPublish` to release a specific package.
+* If releasing to prod, also call `./gradlew bintrayUpload`.
 
-call ./gradlew artifactoryPublish to release all of the packages.
-call ./gradlew :hmkit-oem:artifactoryPublish to release a specific package.
+If pushing the same version number, the package will be overwritten in dev, rejected in release.
 
-If pushing the same version number, in dev package will be overwritten, in release rejected.
-
-If releasing to prod, also call "./gradlew bintrayUpload".
+### Licence
+This repository is using MIT licence. See more in 📘[LICENCE](LICENCE.md)
