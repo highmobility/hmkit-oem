@@ -129,8 +129,7 @@ public class HMKit {
     }
 
     /**
-     * Encrypt a command so that it can be sent to the HM server. The encrypted command will be
-     * returned in CoreCallback's didEncryptCommand.
+     * Encrypt a command so that it can be sent to the HM server.
      *
      * @param privateKey  the vehicle's private key
      * @param certificate the vehicle's Access Certificate
@@ -147,8 +146,7 @@ public class HMKit {
     }
 
     /**
-     * Encrypt a command so that it can be sent to the HM server. The encrypted command will be
-     * returned in CoreCallback's didEncryptCommand.
+     * Encrypt a command so that it can be sent to the HM server.
      *
      * @param contentType the content type. See {@link ContentType} for possible types.
      * @param privateKey  the vehicle's private key
