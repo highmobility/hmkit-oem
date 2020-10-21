@@ -1,7 +1,7 @@
 siteUrl = https://github.com/highmobility/hm-java-oem
 gitUrl = https://github.com/highmobility/hm-java-oem
-version = 2.0.0
 groupId = com.highmobility
-licenses = ['GPL-3.0']
+licenseName = MIT
+licenseUrl = https://opensource.org/licenses/MIT
 id = hmkit-oem
 repo=gradle-dev-local

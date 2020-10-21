@@ -35,8 +35,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+// requires built core
+
 public class Tests {
-    // only work on linux
     @Test public void testSignatures() {
         PublicKey publicKey = new PublicKey
                 ("A5A74048A85AC52A2E41DE5F9554C9CC36B6E3721EE8E8CE9169DC54192D17FD52C3BD1A4AE7F592756C083E17E54B7730965D99B238EB8D33B172DC35E32398");

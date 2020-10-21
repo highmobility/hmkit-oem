@@ -182,7 +182,7 @@ public class HMKit {
         HMBTCore coreJni = initCore(container);
 
         coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
-                .getByteArray(), contentType.asInt(), command.getLength(), command.getByteArray());
+                .getByteArray(), contentType.asInt(), command.getLength(), command.getByteArray(), 1);
 
         validateResult(container, "Encryption failed. Check the parameters");
         return container.getResponse();

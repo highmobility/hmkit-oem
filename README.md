@@ -45,7 +45,8 @@ Before starting please read our contribution rules 📘[Contributing](CONTRIBUTE
 
 ### Release
 
-All of the HMKit OEM packages can be released from this project. This includes hmkit-oem, hmkit-core-jni, hmkit-crypto, hmkit-utils.
+All of the HMKit OEM packages can be released from this project. This includes hmkit-oem, hmkit-core-jni, 
+hmkit-crypto, hmkit-utils.
 
 **Pre checks**
 
