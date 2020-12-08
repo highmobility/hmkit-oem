@@ -106,8 +106,8 @@ public class HMKit {
      * @return the decrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes command) throws CryptoException {
+    public Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                Bytes command) throws CryptoException {
 
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
@@ -139,9 +139,9 @@ public class HMKit {
      * @return the encrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes nonce,
-                                       DeviceSerial serial, Bytes command) throws CryptoException {
+    public Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                Bytes nonce,
+                                DeviceSerial serial, Bytes command) throws CryptoException {
         return encryptCommand(ContentType.AUTO_API, privateKey, certificate, nonce, serial, command);
     }
 
@@ -157,8 +157,8 @@ public class HMKit {
      * @return the encrypted command
      * @throws CryptoException When arguments are invalid or the decryption failed
      */
-    public static Bytes encryptCommand(ContentType contentType, PrivateKey privateKey, AccessCertificate certificate,
-                                         Bytes nonce, DeviceSerial serial, Bytes command) throws CryptoException {
+    public Bytes encryptCommand(ContentType contentType, PrivateKey privateKey, AccessCertificate certificate,
+                                Bytes nonce, DeviceSerial serial, Bytes command) throws CryptoException {
         validatePrivateKey(privateKey);
         validateCertificate(certificate);
 
@@ -186,6 +186,63 @@ public class HMKit {
 
         validateResult(container, "Encryption failed. Check the parameters");
         return container.getResponse();
+    }
+
+    /**
+     * Decrypt an incoming command.
+     *
+     * @param privateKey  the vehicle's private key
+     * @param certificate the vehicle's Access Certificate
+     * @param command     the command that will be decrypted
+     * @return the decrypted command
+     * @throws CryptoException When arguments are invalid or the decryption failed
+     * @deprecated use {@link #decryptCommand(PrivateKey, AccessCertificate, Bytes)} instead
+     */
+    @Deprecated
+    public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes command) throws CryptoException {
+
+        return getInstance().decryptCommand(privateKey, certificate, command)
+    }
+
+    /**
+     * Encrypt a command so that it can be sent to the HM server.
+     *
+     * @param privateKey  the vehicle's private key
+     * @param certificate the vehicle's Access Certificate
+     * @param nonce       the nonce
+     * @param serial      the vehicle's serial number
+     * @param command     the command that will be encrypted
+     * @return the encrypted command
+     * @throws CryptoException When arguments are invalid or the decryption failed
+     * @deprecated use {@link #encryptCommand(PrivateKey, AccessCertificate, Bytes, DeviceSerial, Bytes)}
+     * instead
+     */
+    @Deprecated
+    public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes nonce,
+                                       DeviceSerial serial, Bytes command) throws CryptoException {
+        return getInstance().encryptCommand(ContentType.AUTO_API, privateKey, certificate, nonce, serial, command);
+    }
+
+    /**
+     * Encrypt a command so that it can be sent to the HM server.
+     *
+     * @param contentType the content type. See {@link ContentType} for possible types.
+     * @param privateKey  the vehicle's private key
+     * @param certificate the vehicle's Access Certificate
+     * @param nonce       the nonce
+     * @param serial      the vehicle's serial number
+     * @param command     the command that will be encrypted
+     * @return the encrypted command
+     * @throws CryptoException When arguments are invalid or the decryption failed
+     * @deprecated use {@link #encryptCommand(ContentType, PrivateKey, AccessCertificate, Bytes, DeviceSerial, Bytes)}
+     * instead
+     */
+    @Deprecated
+    public static Bytes encryptCommand(ContentType contentType, PrivateKey privateKey, AccessCertificate certificate,
+                                       Bytes nonce, DeviceSerial serial, Bytes command) throws CryptoException {
+        return getInstance().encryptCommand(contentType, privateKey, certificate, nonce, serial, command);
     }
 
     private static HMBTCore initCore(HMBTCoreInterface container) {
