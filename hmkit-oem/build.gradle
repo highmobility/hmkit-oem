@@ -1,7 +1,5 @@
 apply plugin: "java-library"
-
-def artifact = new Properties()
-artifact.load(new FileInputStream("$projectDir/deploy.settings"))
+apply from: "deploy.gradle"
 
 dependencies {
     if (project.depLocation == 0) {
