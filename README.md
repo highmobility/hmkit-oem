@@ -54,13 +54,20 @@ hmkit-crypto, hmkit-utils.
 
 **Release**
 
-* Update the "version = 1.5.0" in all of the deploy.settings files(if needed).
-* Set the release environment in root build.gradle (ext property release = 0/1/2).
-* Call `./gradlew artifactoryPublish` to release all of the packages.
-* Call `./gradlew :hmkit-utils:artifactoryPublish` to release a specific package.
-* If releasing to prod, also call `./gradlew bintrayUpload`.
+* update ext.ver values in build.gradle or use -Pversion property
+* set ext.depLocation to 1 or use -PdepLocation=1 property
+* Call `./gradlew publish` to release all the packages to dev repo.
+* Call `./gradlew :hmkit-utils:publish` to release a specific package.
+* Call `./gradlew :hmkit-utils:publish -Prepo=gradle-release-local` to specify the repo.
+* If releasing to bintray, also call `./gradlew bintrayUpload`.
 
 If pushing the same version number, the package will be overwritten in dev, rejected in release.
+
+For example, publish utils to dev-local and bintray, using the ext.ver value
+```
+./gradlew :hmkit-utils:publish -Prepo=gradle-dev-local -PdepLocation=1
+./gradlew :hmkit-utils:bintrayUpload
+```
 
 ### Licence
 This repository is using MIT licence. See more in 📘[LICENCE](LICENCE.md)
