@@ -31,9 +31,9 @@ import com.highmobility.hmkit.CryptoException;
 import com.highmobility.hmkit.HMKit;
 import com.highmobility.value.Bytes;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 // requires built core
 
