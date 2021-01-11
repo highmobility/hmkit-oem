@@ -1,4 +1,6 @@
 buildscript {
+    ext.kotlinVersion = "1.4.10"
+
     repositories {
         jcenter()
     }
@@ -6,6 +8,10 @@ buildscript {
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.13.0"
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
+}
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version "$kotlinVersion"
 }
 
 allprojects {
