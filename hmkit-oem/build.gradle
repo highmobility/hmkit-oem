@@ -27,3 +27,21 @@ jar {
 
 apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/deploy-java-v2.gradle"
 apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/jupiter-test-shell-logging.gradle"
+
+task buildCoreOsx {
+    doLast {
+        exec {
+            workingDir '.'
+            commandLine 'sh', '-c', 'cd src/main/jni && make clean && make -f Makefile-osx && cd -'
+        }
+    }
+}
+
+task buildCoreLinux {
+    doLast {
+        exec {
+            workingDir '.'
+            commandLine 'sh', '-c', 'cd src/main/jni && make clean && make && cd -'
+        }
+    }
+}

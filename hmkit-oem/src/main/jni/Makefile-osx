@@ -1,4 +1,4 @@
-# This is for building in Linux
+# This is for building in osx
 
 # Include openssl crypto
 HM_OPENSSL_C  := $(shell cd ../../../../hmkit-core-jni/hmkit-crypto-c/; pwd)
@@ -7,11 +7,8 @@ dir += $(HM_OPENSSL_C)
 HM_BT_CORE := $(shell cd ../../../../hmkit-core-jni/hmkit-core/; pwd)
 dir += $(HM_BT_CORE)
 
-JAVA_HOME:=/usr/lib/jvm/default-java
+JAVA_HOME:=`/usr/libexec/java_home`
 LOCAL_PATH := $(shell cd ../../../../hmkit-core-jni/src/main/jni/; pwd)
-
-# for 32bit prepend -m32
-CFLAGS += -I $(JAVA_HOME)/include -I $(JAVA_HOME)/include/darwin -D _GNU_SOURCE
 
 #add source paths to vpath
 VPATH = $(dir)
@@ -38,14 +35,15 @@ SRC += $(HM_BT_CORE)/hmkit_core_api.c
 
 CFLAGS += -Wall -std=c99 -fPIC
 
+# java. for 32bit prepend -m32
+CFLAGS += -I$(JAVA_HOME)/include\
+          -I$(JAVA_HOME)/include/darwin -D _GNU_SOURCE
+
 CFLAGS += -I$(APP_SOURCES)\
 	-I$(HM_BT_CORE)\
 	-I$(HM_OPENSSL_C)\
 	-I$(LOCAL_PATH)\
 	-I$(LOCAL_PATH)/openssl\
-	-I/usr/lib/jvm/default-java/include\
-	-I/usr/lib/jvm/default-java/include/linux\
-	-I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers
 
 LFLAGS +=
 
@@ -65,7 +63,7 @@ $(TARGET): $(SRC:.c=.o)
 	 -L$(LOCAL_PATH)/../prebuiltLibs/macOS-x86_64\
 	 -L/usr/lib -lssl -lcrypto
 
-SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH) $(TARGET_DIR) $(HM_BT_CORE)
+SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH) $(TARGET_DIR) $(HM_BT_CORE) $(HM_OPENSSL_C)
 DIRS := . $(shell find $(SUBDIR_ROOTS) -type d)
 GARBAGE_PATTERNS := *.o *~ core .depend .*.cmd *.ko *.mod.c *.jnilib
 GARBAGE := $(foreach DIR,$(DIRS),$(addprefix $(DIR)/,$(GARBAGE_PATTERNS)))

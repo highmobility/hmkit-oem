@@ -38,7 +38,7 @@ Before starting please read our contribution rules 📘[Contributing](CONTRIBUTE
 ### Setup
 
 * `git submodule update --init --recursive`
-* Build the HMKit Core: `cd hmkit-oem/src/main/jni && make && cd -`
+* Build the HMKit Core: `./gradlew buildCore{Osx/Linux}`
 * import the Gradle project
 * Run the Tests.java tests
 * If there are errors, try `Gradle clean`, `File > Invalidate caches and restart`

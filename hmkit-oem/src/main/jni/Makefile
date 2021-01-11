@@ -43,8 +43,8 @@ CFLAGS += -I$(APP_SOURCES)\
 	-I$(HM_OPENSSL_C)\
 	-I$(LOCAL_PATH)\
 	-I$(LOCAL_PATH)/openssl\
-	-I/usr/lib/jvm/default-java/include\
-	-I/usr/lib/jvm/default-java/include/linux
+	-I/usr/lib/jvm/java-1.8.0-openjdk-amd64/include\
+	-I/usr/lib/jvm/java-1.8.0-openjdk-amd64/include/linux
 
 LFLAGS +=
 
@@ -65,7 +65,7 @@ $(TARGET): $(SRC:.c=.o)
 	 -L$(LOCAL_PATH)/../prebuiltLibs/linux_x86\
 	 -L/usr/lib -lssl -lcrypto
 
-SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH) $(TARGET_DIR) $(HM_BT_CORE)
+SUBDIR_ROOTS := $(TARGET) $(LOCAL_PATH) $(TARGET_DIR) $(HM_BT_CORE) $(HM_OPENSSL_C)
 DIRS := . $(shell find $(SUBDIR_ROOTS) -type d)
 GARBAGE_PATTERNS := *.o *~ core .depend .*.cmd *.ko *.mod.c *.jnilib
 GARBAGE := $(foreach DIR,$(DIRS),$(addprefix $(DIR)/,$(GARBAGE_PATTERNS)))
