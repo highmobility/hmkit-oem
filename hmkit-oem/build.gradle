@@ -1,5 +1,3 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
 apply plugin: "java-library"
 apply from: "deploy.gradle"
 
@@ -11,9 +9,7 @@ dependencies {
         implementation project(':hmkit-utils')
     } else {
         api deps.crypto
-        api deps.utils
     }
-
     implementation 'org.slf4j:slf4j-api:1.7.25'
 
     testImplementation 'org.slf4j:slf4j-simple:1.7.25'
@@ -21,23 +17,5 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
-jar {
-    from '../lib/libhmbtcore.jnilib'
-}
-
-apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/deploy-java-v2.gradle"
+apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/deploy-java-mavenCentral.gradle"
 apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/jupiter-test-shell-logging.gradle"
-
-task buildCore {
-    doLast {
-        exec {
-            workingDir '.'
-            if (Os.isFamily(Os.FAMILY_MAC)) {
-                commandLine 'sh', '-c', 'cd src/main/jni && make clean && make -f Makefile-osx && cd -'
-            }
-            else {
-                commandLine 'sh', '-c', 'cd src/main/jni && make clean && make && cd -'
-            }
-        }
-    }
-}

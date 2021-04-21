@@ -23,8 +23,6 @@
  */
 package com.highmobility.hmkit;
 
-import com.highmobility.btcore.HMBTCore;
-import com.highmobility.btcore.HMBTCoreInterface;
 import com.highmobility.crypto.AccessCertificate;
 import com.highmobility.crypto.Crypto;
 import com.highmobility.crypto.value.DeviceSerial;
@@ -34,14 +32,7 @@ import com.highmobility.value.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 public class HMKit {
-
-    private static final String invalidArgumentExceptionMessage = "Invalid argument";
-
     private static volatile HMKit instance;
 
     public static Logger logger = LoggerFactory.getLogger(HMKit.class);
@@ -53,26 +44,6 @@ public class HMKit {
      */
     public Crypto getCrypto() {
         return crypto;
-    }
-
-    static {
-        // load the core in static since it is used in static methods.
-        Class testClass = HMKit.class;
-        boolean jar =
-                testClass.getResource(testClass.getSimpleName() + ".class").toString().startsWith("jar");
-
-        if (jar) {
-            try {
-                NativeUtils.loadLibraryFromJar("/libhmbtcore.jnilib");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            // this loads the lib locally for unit tests
-            Path resourceDirectory = Paths.get("");
-            String abs = resourceDirectory.toAbsolutePath() + "/../lib/libhmbtcore.jnilib";
-            System.load(abs);
-        }
     }
 
     /**
@@ -94,7 +65,7 @@ public class HMKit {
             throw new RuntimeException("Use getInstance() to get the HMKit singleton");
         }
 
-        crypto = new Crypto(new HMBTCore());
+        crypto = new Crypto();
     }
 
     /**
@@ -104,28 +75,10 @@ public class HMKit {
      * @param certificate the vehicle's Access Certificate
      * @param command     the command that will be decrypted
      * @return the decrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
      */
     public Bytes decrypt(PrivateKey privateKey, AccessCertificate certificate,
-                         Bytes command) throws CryptoException {
-
-        validatePrivateKey(privateKey);
-        validateCertificate(certificate);
-
-        if (command == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        HMBTCoreInterfaceImpl container = new HMBTCoreInterfaceImpl(privateKey.getByteArray(),
-                certificate);
-        HMBTCore coreJni = initCore(container);
-
-        coreJni.HMBTCoreTelematicsReceiveData(container, command.getLength(), command
-                .getByteArray());
-
-        validateResult(container, "Decryption failed. Check the parameters");
-        return container.getResponse();
+                         Bytes command) {
+        return crypto.getPayloadFromTelematicsContainer(command, privateKey, certificate);
     }
 
     /**
@@ -137,11 +90,10 @@ public class HMKit {
      * @param serial      the vehicle's serial number
      * @param command     the command that will be encrypted
      * @return the encrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
      */
     public Bytes encrypt(PrivateKey privateKey, AccessCertificate certificate,
                          Bytes nonce,
-                         DeviceSerial serial, Bytes command) throws CryptoException {
+                         DeviceSerial serial, Bytes command) {
         return encryptCommand(ContentType.AUTO_API, privateKey, certificate, nonce, serial, command);
     }
 
@@ -155,37 +107,11 @@ public class HMKit {
      * @param serial      the vehicle's serial number
      * @param command     the command that will be encrypted
      * @return the encrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
      */
     public Bytes encrypt(ContentType contentType, PrivateKey privateKey, AccessCertificate certificate,
-                         Bytes nonce, DeviceSerial serial, Bytes command) throws CryptoException {
-        validatePrivateKey(privateKey);
-        validateCertificate(certificate);
+                         Bytes nonce, DeviceSerial serial, Bytes command) {
 
-        if (command == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        if (nonce == null || nonce.getLength() != 9) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        if (serial == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-
-        HMBTCoreInterfaceImpl container = new HMBTCoreInterfaceImpl(serial.getByteArray(),
-                privateKey.getByteArray(), certificate);
-        HMBTCore coreJni = initCore(container);
-
-        coreJni.HMBTCoreSendTelematicsCommand(container, serial.getByteArray(), nonce
-                .getByteArray(), contentType.asInt(), command.getLength(), command.getByteArray(), 1);
-
-        validateResult(container, "Encryption failed. Check the parameters");
-        return container.getResponse();
+        return crypto.createTelematicsContainer(command, privateKey, serial, certificate, nonce);
     }
 
     /**
@@ -195,12 +121,11 @@ public class HMKit {
      * @param certificate the vehicle's Access Certificate
      * @param command     the command that will be decrypted
      * @return the decrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
      * @deprecated use {@link #decrypt(PrivateKey, AccessCertificate, Bytes)} instead
      */
     @Deprecated
     public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes command) throws CryptoException {
+                                       Bytes command) {
 
         return getInstance().decrypt(privateKey, certificate, command);
     }
@@ -214,14 +139,13 @@ public class HMKit {
      * @param serial      the vehicle's serial number
      * @param command     the command that will be encrypted
      * @return the encrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
      * @deprecated use {@link #encrypt(PrivateKey, AccessCertificate, Bytes, DeviceSerial, Bytes)}
      * instead
      */
     @Deprecated
     public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
                                        Bytes nonce,
-                                       DeviceSerial serial, Bytes command) throws CryptoException {
+                                       DeviceSerial serial, Bytes command) {
         return getInstance().encrypt(ContentType.AUTO_API, privateKey, certificate, nonce, serial, command);
     }
 
@@ -235,40 +159,12 @@ public class HMKit {
      * @param serial      the vehicle's serial number
      * @param command     the command that will be encrypted
      * @return the encrypted command
-     * @throws CryptoException When arguments are invalid or the decryption failed
      * @deprecated use {@link #encrypt(ContentType, PrivateKey, AccessCertificate, Bytes, DeviceSerial, Bytes)}
      * instead
      */
     @Deprecated
     public static Bytes encryptCommand(ContentType contentType, PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes nonce, DeviceSerial serial, Bytes command) throws CryptoException {
+                                       Bytes nonce, DeviceSerial serial, Bytes command) {
         return getInstance().encrypt(contentType, privateKey, certificate, nonce, serial, command);
-    }
-
-    private static HMBTCore initCore(HMBTCoreInterface container) {
-        HMBTCore jniToCore = new HMBTCore();
-        jniToCore.HMBTCoreInit(container);
-        return jniToCore;
-    }
-
-    private static void validateCertificate(AccessCertificate certificate) throws CryptoException {
-        if (certificate == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-    }
-
-    private static void validatePrivateKey(PrivateKey privateKey) throws CryptoException {
-        if (privateKey == null) {
-            throw new CryptoException(CryptoException.Type.INVALID_ARGUMENT,
-                    invalidArgumentExceptionMessage);
-        }
-    }
-
-    private static void validateResult(HMBTCoreInterfaceImpl container, String message) throws
-            CryptoException {
-        if (container.getResponse() == null) {
-            throw new CryptoException(CryptoException.Type.INTERNAL_ERROR, message);
-        }
     }
 }

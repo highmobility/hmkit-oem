@@ -33,4 +33,5 @@ ext.ver = [
 ext.deps = [
         "crypto"  : "com.highmobility:hmkit-crypto:${ver."hmkit-crypto"}",
         "utils"   : "com.highmobility:hmkit-utils:${ver."hmkit-utils"}",
+        "findBugs": 'com.google.code.findbugs:jsr305:3.0.2'
 ]

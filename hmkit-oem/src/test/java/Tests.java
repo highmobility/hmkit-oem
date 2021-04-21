@@ -1,14 +1,14 @@
 /*
  * The MIT License
  *
- * Copyright (c) 2014- High-Mobility GmbH (https://high-mobility.com)
+ * Copyright (c) 2014- High-Mobility GmbH (https//high-mobility.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * furnished to do so, subject to the following conditions
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
@@ -27,7 +27,6 @@ import com.highmobility.crypto.value.DeviceSerial;
 import com.highmobility.crypto.value.PrivateKey;
 import com.highmobility.crypto.value.PublicKey;
 import com.highmobility.crypto.value.Signature;
-import com.highmobility.hmkit.CryptoException;
 import com.highmobility.hmkit.HMKit;
 import com.highmobility.value.Bytes;
 
@@ -51,12 +50,15 @@ public class Tests {
 
         assertTrue(crypto.verify(data, sig, publicKey));
 
+        // Invalid public key
         publicKey = new PublicKey(
-                "A6A74048A85AC52A2E41DE5F9554C9CC36B6E3721EE8E8CE9169DC54192D17FD52C3BD1A4AE7F592756C083E17E54B7730965D99B238EB8D33B172DC35E32398");
+                "ff10334d1631346343845541886fb7a6ed37c61d7a9ebda6543c6696383d995b0ba7b1abb7e664219c70df02fcb0714e7dbe11df2fdfee7557c27a386f182434");
         assertTrue(crypto.verify(data, sig, publicKey) == false);
     }
 
-    @Test public void testCommand() throws CryptoException {
+
+
+    @Test public void testCommand() {
         PrivateKey vehiclePrivateKey = new PrivateKey(
                 "468A685967EF57ADC7FB6C51B12045722C74277C45EDD8EC005D1FF4197D6006");
         AccessCertificate vehicleCertificate = new AccessCertificate(

@@ -38,7 +38,7 @@ public class Telematics {
      */
     @Deprecated
     public static Bytes decryptCommand(PrivateKey privateKey, AccessCertificate certificate,
-                                       Bytes command) throws CryptoException {
+                                       Bytes command) {
         return HMKit.decryptCommand(privateKey, certificate, command);
     }
 
@@ -48,7 +48,7 @@ public class Telematics {
     @Deprecated
     public static Bytes encryptCommand(PrivateKey privateKey, AccessCertificate certificate,
                                        Bytes nonce,
-                                       DeviceSerial serial, Bytes command) throws CryptoException {
+                                       DeviceSerial serial, Bytes command) {
         return HMKit.encryptCommand(privateKey, certificate, nonce, serial, command);
     }
 }

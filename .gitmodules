@@ -1,6 +1,3 @@
 [submodule "hmkit-crypto"]
 	path = hmkit-crypto
 	url = git@github.com:highmobility/hmkit-crypto-java.git
-[submodule "auto-api-java"]
-	path = auto-api-java
-	url = git@github.com:highmobility/auto-api-java.git
