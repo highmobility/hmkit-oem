@@ -1,3 +1,9 @@
+# [DEPRECATED]
+HMKit OEM functionality can be achieved via [hmkit-crypto-telematics](https://github.com/highmobility/hmkit-crypto-java/tree/telematics) package. Released in [mavenCentral()](https://search.maven.org/artifact/com.high-mobility/hmkit-crypto-telematics/0.1/jar).
+crypto-telematics is written in Java, without JNI. For that reason it is favored to hmkit-oem.
+
+Use methods [createTelematicsContainer](https://github.com/highmobility/hmkit-crypto-java/blob/telematics/src/main/java/com/highmobility/crypto/Crypto.kt#L220) and [getPayloadFromTelematicsContainer](https://github.com/highmobility/hmkit-crypto-java/blob/telematics/src/main/java/com/highmobility/crypto/Crypto.kt#L250) instead of encrypt/decrypt in this repository.
+
 # HMKit OEM
 
 HMKit OEM is used to encrypt/decrypt commands that are sent to/from OEM cloud.
