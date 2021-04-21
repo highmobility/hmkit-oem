@@ -2,11 +2,11 @@ buildscript {
     ext.kotlinVersion = "1.4.10"
 
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.13.0"
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
     }
 }
 
@@ -16,28 +16,21 @@ plugins {
 
 allprojects {
     repositories {
+        google()
         jcenter()
-        maven {
-            url "http://jfrog.high-mobility.com/artifactory/gradle-dev-local/"
-            credentials {
-                username devReadUser
-                password devReadPassword
-            }
-        }
+        maven { url "http://jfrog.high-mobility.com/artifactory/gradle-00/" }
     }
 }
 
 ext.depLocation = 0
 
 ext.ver = [
-        "hmkit-core-jni"    : "1.0.2-dev",
         "hmkit-crypto"      : "1.4.6-dev",
         "hmkit-utils"       : "1.4.5-dev",
-        "hmkit-oem"         : "2.0.1-osx"
+        "hmkit-oem"         : "2.0.1-dev"
 ]
 
 ext.deps = [
         "crypto"  : "com.highmobility:hmkit-crypto:${ver."hmkit-crypto"}",
         "utils"   : "com.highmobility:hmkit-utils:${ver."hmkit-utils"}",
-        "corejni" : "com.highmobility:hmkit-core-jni:${ver."hmkit-core-jni"}"
 ]

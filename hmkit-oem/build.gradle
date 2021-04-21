@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 apply plugin: "java-library"
 apply from: "deploy.gradle"
 
@@ -7,10 +9,8 @@ dependencies {
     if (project.depLocation == 0) {
         implementation project(':hmkit-crypto')
         implementation project(':hmkit-utils')
-        implementation project(':hmkit-core-jni')
     } else {
         api deps.crypto
-        api deps.corejni
         api deps.utils
     }
 
@@ -28,20 +28,16 @@ jar {
 apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/deploy-java-v2.gradle"
 apply from: "https://raw.githubusercontent.com/tonisives/tools/master/gradle/jupiter-test-shell-logging.gradle"
 
-task buildCoreOsx {
+task buildCore {
     doLast {
         exec {
             workingDir '.'
-            commandLine 'sh', '-c', 'cd src/main/jni && make clean && make -f Makefile-osx && cd -'
-        }
-    }
-}
-
-task buildCoreLinux {
-    doLast {
-        exec {
-            workingDir '.'
-            commandLine 'sh', '-c', 'cd src/main/jni && make clean && make && cd -'
+            if (Os.isFamily(Os.FAMILY_MAC)) {
+                commandLine 'sh', '-c', 'cd src/main/jni && make clean && make -f Makefile-osx && cd -'
+            }
+            else {
+                commandLine 'sh', '-c', 'cd src/main/jni && make clean && make && cd -'
+            }
         }
     }
 }
